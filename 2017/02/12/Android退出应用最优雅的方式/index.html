@@ -83,7 +83,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="NexT,canvas-nest.js," />
+  <meta name="keywords" content="android," />
 
 
 
@@ -99,18 +99,22 @@
 
 
 
-<meta name="description" content="NexT的主题背景看久了会有些闷，所以想改下背景，网上搜了下发现基本都是直接设置一张静态图片，我想能不能利用HTML5的canvas特性设置一个动态背景呢，答案是可以的，详细教程如下：">
+<meta name="description" content="1.容器式
+建立一个全局容器，把所有的Activity存储起来，退出时循环遍历finish所有Activity
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748import java.util.ArrayList;import java.util.List;import a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用canvas-next.js设置NexT主题背景">
-<meta property="og:url" content="http://vi1zen.cn/2017/02/12/利用canvas-next.js设置NexT主题背景/index.html">
+<meta property="og:title" content="Android退出应用最优雅的方式">
+<meta property="og:url" content="http://vi1zen.cn/2017/02/12/Android退出应用最优雅的方式/index.html">
 <meta property="og:site_name" content="vi1zen">
-<meta property="og:description" content="NexT的主题背景看久了会有些闷，所以想改下背景，网上搜了下发现基本都是直接设置一张静态图片，我想能不能利用HTML5的canvas特性设置一个动态背景呢，答案是可以的，详细教程如下：">
-<meta property="og:image" content="http://ol9j5v5dg.bkt.clouddn.com/NexT_background_image.png">
-<meta property="og:updated_time" content="2017-02-19T07:30:50.408Z">
+<meta property="og:description" content="1.容器式
+建立一个全局容器，把所有的Activity存储起来，退出时循环遍历finish所有Activity
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748import java.util.ArrayList;import java.util.List;import a">
+<meta property="og:updated_time" content="2017-03-05T13:28:10.076Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用canvas-next.js设置NexT主题背景">
-<meta name="twitter:description" content="NexT的主题背景看久了会有些闷，所以想改下背景，网上搜了下发现基本都是直接设置一张静态图片，我想能不能利用HTML5的canvas特性设置一个动态背景呢，答案是可以的，详细教程如下：">
-<meta name="twitter:image" content="http://ol9j5v5dg.bkt.clouddn.com/NexT_background_image.png">
+<meta name="twitter:title" content="Android退出应用最优雅的方式">
+<meta name="twitter:description" content="1.容器式
+建立一个全局容器，把所有的Activity存储起来，退出时循环遍历finish所有Activity
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748import java.util.ArrayList;import java.util.List;import a">
 
 
 
@@ -138,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="http://vi1zen.cn/2017/02/12/利用canvas-next.js设置NexT主题背景/"/>
+  <link rel="canonical" href="http://vi1zen.cn/2017/02/12/Android退出应用最优雅的方式/"/>
 
 
 
 
 
-  <title> 利用canvas-next.js设置NexT主题背景 | vi1zen </title>
+  <title> Android退出应用最优雅的方式 | vi1zen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -291,7 +295,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://vi1zen.cn/2017/02/12/利用canvas-next.js设置NexT主题背景/">
+  <link itemprop="mainEntityOfPage" href="http://vi1zen.cn/2017/02/12/Android退出应用最优雅的方式/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="vi1zen">
@@ -315,7 +319,7 @@
             
             
               
-                利用canvas-next.js设置NexT主题背景
+                Android退出应用最优雅的方式
               
             
           </h1>
@@ -349,8 +353,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/12/利用canvas-next.js设置NexT主题背景/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/12/利用canvas-next.js设置NexT主题背景/" itemprop="commentCount"></span>
+                <a href="/2017/02/12/Android退出应用最优雅的方式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/12/Android退出应用最优雅的方式/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -358,7 +362,7 @@
 
           
           
-             <span id="/2017/02/12/利用canvas-next.js设置NexT主题背景/" class="leancloud_visitors" data-flag-title="利用canvas-next.js设置NexT主题背景">
+             <span id="/2017/02/12/Android退出应用最优雅的方式/" class="leancloud_visitors" data-flag-title="Android退出应用最优雅的方式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -387,44 +391,23 @@
       
 
       
-        <p>  NexT的主题背景看久了会有些闷，所以想改下背景，网上搜了下发现基本都是直接设置一张静态图片，我想能不能利用HTML5的canvas特性设置一个动态背景呢，答案是可以的，详细教程如下：</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><img src="http://ol9j5v5dg.bkt.clouddn.com/NexT_background_image.png" alt="示例背景图"></h2><a id="more"></a>
-<h3 id="canvas-nest-js介绍"><a href="#canvas-nest-js介绍" class="headerlink" title="canvas-nest.js介绍"></a>canvas-nest.js介绍</h3><blockquote>
-<p><strong>canvas-nest.js</strong></p>
-<p>一个基于html5 canvas绘制的网页背景效果，非常赞！如果需要 wordpress插件，在插件库搜索 canvas-nest 或者看看项目 canvas-nest-for-wp。</p>
-</blockquote>
-<h4 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h4><blockquote>
-<ul>
-<li>不依赖任何框架或者内库，比如不依赖 jQuery，使用原生的 javascript。</li>
-<li>非常小，只有1.6 kb，如果开启 gzip，可以更小。</li>
-<li>非常容易实现，配置简单，即使你不是web开发者，也能简单搞定。</li>
-</ul>
-</blockquote>
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>使用非常简单，感觉都没有必要写这一节内容。</p>
-<p>将下面的代码插入到 <body> 和 </body> 之间.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"</span>&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>强烈建议在 标签上方. 例如下面的代码结构:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	...</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	...</div><div class="line">	...</div><div class="line">    &lt;script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"&gt;</div><div class="line">    &lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<p>请注意不要将代码置于<code>&lt;head&gt; &lt;/head&gt;</code>里面.</p>
-<p>然后就完成了，打开网页即可看到效果!</p>
-<p>配置和配置项</p>
+        <p>1.容器式</p>
+<p>建立一个全局容器，把所有的Activity存储起来，退出时循环遍历finish所有Activity</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"><span class="keyword">import</span> android.app.Activity;</div><div class="line"><span class="keyword">import</span> android.os.Bundle;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> </span>&#123;</div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    <span class="comment">// 添加Activity到堆栈</span></div><div class="line">    AtyContainer.getInstance().addActivity(<span class="keyword">this</span>);</div><div class="line">  &#125;</div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">super</span>.onDestroy();</div><div class="line"></div><div class="line">    <span class="comment">// 结束Activity&amp;从栈中移除该Activity</span></div><div class="line">    AtyContainer.getInstance().removeActivity(<span class="keyword">this</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">  <span class="class"><span class="keyword">class</span> <span class="title">AtyContainer</span> </span>&#123;</div><div class="line">  	<span class="function"><span class="keyword">private</span> <span class="title">AtyContainer</span><span class="params">()</span> </span>&#123;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">private</span> <span class="keyword">static</span> AtyContainer instance = <span class="keyword">new</span> AtyContainer();</div><div class="line">  <span class="keyword">private</span> <span class="keyword">static</span> List&lt;Activity&gt; activityStack = <span class="keyword">new</span> ArrayList&lt;Activity&gt;();</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> AtyContainer <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">  	<span class="keyword">return</span> instance;</div><div class="line">  &#125;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addActivity</span><span class="params">(Activity aty)</span> </span>&#123;</div><div class="line">  	activityStack.add(aty);</div><div class="line">  &#125;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeActivity</span><span class="params">(Activity aty)</span> </span>&#123;</div><div class="line">  	activityStack.remove(aty);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 结束所有Activity</div><div class="line">   */</div><div class="line"> </div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">finishAllActivity</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, size = activityStack.size(); i &lt; size; i++) &#123;</div><div class="line">      <span class="keyword">if</span> (<span class="keyword">null</span> != activityStack.get(i)) &#123;</div><div class="line">      activityStack.get(i).finish();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">    activityStack.clear();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这种方法比较简单， 但是可以看到activityStack持有这Activity的强引用，也就是说当某个Activity异常退出时，activityStack没有即使释放掉引用，就会导致内存问题，接下来我们看一种类似的方式，但是会稍微优雅一点点.</p>
+<p>2.广播式</p>
+<p>通过在BaseActivity中注册一个广播，当退出时发送一个广播，finish退出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String EXITACTION = <span class="string">"action.exit"</span>;</div><div class="line">  <span class="keyword">private</span> ExitReceiver exitReceiver = <span class="keyword">new</span> ExitReceiver();</div><div class="line"></div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    IntentFilter filter = <span class="keyword">new</span> IntentFilter();</div><div class="line">    filter.addAction(EXITACTION);</div><div class="line">    registerReceiver(exitReceiver, filter);</div><div class="line">  &#125;</div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onDestroy();</div><div class="line">    unregisterReceiver(exitReceiver);</div><div class="line">  &#125;</div><div class="line">  <span class="class"><span class="keyword">class</span> <span class="title">ExitReceiver</span> <span class="keyword">extends</span> <span class="title">BroadcastReceiver</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceive</span><span class="params">(Context context, Intent intent)</span> </span>&#123;</div><div class="line">    BaseActivity.<span class="keyword">this</span>.finish();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>3.进程式</p>
+<p>通过直接杀死当前应用的进程来结束应用，简单粗暴，而且有（wu）效！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">android.os.Process.killProcess(android.os.Process.myPid());</div><div class="line">System.exit(<span class="number">0</span>);</div><div class="line">ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);</div><div class="line">manager.killBackgroundProcesses(getPackageName());</div></pre></td></tr></table></figure>
+<p>这三种都能达到同样的效果，但是在模拟器上都会弹出 Unfortunately , XXX has stopped 消息提示框，但确实能退出应用。部分真机直接失效，只能finish当前Activity（比如我手上这台小米note，国产的几款ROM fw层改动太多，使用这种方式需慎重） 。</p>
+<p>4.RS优雅式</p>
+<p>什么是RS式呢？即Receiver+singleTask 。我们知道Activity有四种加载模式，而singleTask就是其中的一种，使用这个模式之后，当startActivity时，它先会在当前栈中查询是否存在Activity的实例，如果存在，则将其至于栈顶，并将其之上的所有Activity移除栈。我们打开一个app，首先是一个splash页面，然后会finish掉splash页面。跳转到主页。然后会在主页进行N次的跳转，期间会产生数量不定的Activity，有的被销毁，有的驻留在栈中，但是栈底永远是我们的HomeActivity。这样就让问题变得简单很多了。我们只需两步操作即可优雅的实现app的退出。</p>
 <blockquote>
-<ul>
-<li>color: 线条颜色, 默认: ‘0,0,0’ ；三个数字分别为(R,G,B)，注意用,分割</li>
-<li>opacity: 线条透明度（0~1）, 默认: 0.5</li>
-<li>count: 线条的总数量, 默认: 150</li>
-<li>zIndex: 背景的z-index属性，css属性用于控制所在层的位置, 默认: -1</li>
-<li>Example:</li>
-</ul>
+<p>1、在HomeActivity注册一个退出广播，和第二个广播式一样，但是这里只需要在HomeActivity一个页面注册即可。<br>2、设置HomeActivity的启动模式为singleTask。</p>
 </blockquote>
-<p><script type="text/javascript" color="0,0,255" opacity="0.7" zindex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script><br>这些属性配置在引用js的script标签中，作为它的一个属性值。所有的配置项都有默认值，如果你不知道怎么设置，可以先不设置这些配置项，就使用默认值看看效果也可以的。</p>
-<blockquote>
-<p>以上转载自<a href="https://github.com/hustcc/canvas-nest.js/blob/master/README-zh.md" target="_blank" rel="external">https://github.com/hustcc/canvas-nest.js/blob/master/README-zh.md</a></p>
-</blockquote>
-<h3 id="主题配置文件"><a href="#主题配置文件" class="headerlink" title="主题配置文件"></a>主题配置文件</h3><p>在站点配置文件中新增以下内容</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Canvas-nest</div><div class="line">canvas_nest: true</div><div class="line"></div><div class="line">vendors://此处不设置也行</div><div class="line">    canvas_nest: //cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js</div></pre></td></tr></table></figure>
-<p>在<code>\themes\next\layout\_scripts\vendors.swig</code>文件中新增以下内容</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;% <span class="keyword">if</span> theme.canvas_nest %&#125;</div><div class="line">  &#123;% set js_vendors.canvas_nest  = <span class="string">'canvas-nest/canvas-nest.min.js'</span> %&#125;</div><div class="line">  &lt;script type=<span class="string">"text/javascript"</span> color=<span class="string">"0,0,255"</span> opacity=<span class="string">'0.5'</span> zIndex=<span class="string">"-2"</span> count=<span class="string">"100"</span> src=<span class="string">"//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"</span>&gt;&lt;/script&gt;</div><div class="line">&#123;% endif %&#125;</div></pre></td></tr></table></figure>
+<p>当我们需要退出的时候只需要startActivity(this,HomeActivity,class)， 再发送一个退出广播。上面代码首先会把栈中HomeActivity之上的所有Activity移除出栈，然后接到广播finish自己。一切OK ! 没有弹框，不用考虑机型Rom适配。不会有内存问题，就是那么的优雅，简单！</p>
 
       
     </div>
@@ -448,9 +431,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/NexT/" rel="tag"># NexT</a>
-          
-            <a href="/tags/canvas-nest-js/" rel="tag"># canvas-nest.js</a>
+            <a href="/tags/android/" rel="tag"># android</a>
           
         </div>
       
@@ -463,8 +444,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/09/利用github pages + Hexo搭建个人博客/" rel="next" title="利用Hexo + NexT搭建个人博客">
-                <i class="fa fa-chevron-left"></i> 利用Hexo + NexT搭建个人博客
+              <a href="/2017/02/12/利用canvas-next.js设置NexT主题背景/" rel="next" title="利用canvas-next.js设置NexT主题背景">
+                <i class="fa fa-chevron-left"></i> 利用canvas-next.js设置NexT主题背景
               </a>
             
           </div>
@@ -472,10 +453,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/12/Android退出应用最优雅的方式/" rel="prev" title="Android退出应用最优雅的方式">
-                Android退出应用最优雅的方式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -501,8 +478,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/02/12/利用canvas-next.js设置NexT主题背景/"
-           data-title="利用canvas-next.js设置NexT主题背景" data-url="http://vi1zen.cn/2017/02/12/利用canvas-next.js设置NexT主题背景/">
+      <div class="ds-thread" data-thread-key="2017/02/12/Android退出应用最优雅的方式/"
+           data-title="Android退出应用最优雅的方式" data-url="http://vi1zen.cn/2017/02/12/Android退出应用最优雅的方式/">
       </div>
     
   </div>
@@ -526,17 +503,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avater.jpg"
@@ -585,22 +553,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#canvas-nest-js介绍"><span class="nav-number">1.1.</span> <span class="nav-text">canvas-nest.js介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#特性"><span class="nav-number">1.1.1.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">1.1.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题配置文件"><span class="nav-number">1.2.</span> <span class="nav-text">主题配置文件</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
     </div>
