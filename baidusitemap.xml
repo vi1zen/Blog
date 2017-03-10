@@ -5,14 +5,34 @@
     
     
   <url>
-    <loc>http://vi1zen.cn/2017/03/05/Android%E9%80%80%E5%87%BA%E5%BA%94%E7%94%A8%E6%9C%80%E4%BC%98%E9%9B%85%E7%9A%84%E6%96%B9%E5%BC%8F/</loc>
-    <lastmod>2017-03-05T13:33:37.394Z</lastmod>
+    <loc>http://vi1zen.cn/2017/03/06/android%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/</loc>
+    <lastmod>2017-03-10T06:26:45.058Z</lastmod>
+    <data>
+        <display>
+        <title>Android网络编程之网络通信的几种方式</title>
+        <pubTime>2017-03-06T13:31:30.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://vi1zen.cn/2017/03/06/Android%E9%80%80%E5%87%BA%E5%BA%94%E7%94%A8%E6%9C%80%E4%BC%98%E9%9B%85%E7%9A%84%E6%96%B9%E5%BC%8F/</loc>
+    <lastmod>2017-03-06T13:29:31.777Z</lastmod>
     <data>
         <display>
         <title>Android退出应用最优雅的方式</title>
-        <pubTime>2017-03-05T13:33:33.000Z</pubTime>
+        <pubTime>2017-03-06T13:27:05.000Z</pubTime>
         
-        <tag>android</tag>
+        <tag>Android</tag>
          
          
            
@@ -20,6 +40,7 @@
     </data>
     </url>
 
+    
     
     
   <url>
@@ -50,9 +71,9 @@
         <title>利用Hexo + NexT搭建个人博客</title>
         <pubTime>2017-02-09T13:12:08.479Z</pubTime>
         
-        <tag>NexT</tag>
-         
         <tag>Hexo</tag>
+         
+        <tag>NexT</tag>
          
          
            
