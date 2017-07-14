@@ -83,7 +83,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="NexT,canvas-nest.js," />
+  <meta name="keywords" content="list," />
 
 
 
@@ -99,18 +99,19 @@
 
 
 
-<meta name="description" content="NexT的主题背景看久了会有些闷，所以想改下背景，网上搜了下发现基本都是直接设置一张静态图片，我想能不能利用HTML5的canvas特性设置一个动态背景呢，答案是可以的，详细教程如下：">
+<meta name="description" content="印象中循环删除list中的元素使用for循环的方式是有问题的，但是可以使用增强的for循环，然后今天在使用时发现报错了，然后去科普了一下，再然后发现这是一个误区。下面就来讲一讲…
+JAVA中循环遍历list有三种方式for循环、增强for循环（也就是常说的foreach循环）、iterator遍历。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用canvas-next.js设置NexT主题背景">
-<meta property="og:url" content="http://vi1zen.cn/2017/02/12/利用canvas-next.js设置NexT主题背景/index.html">
+<meta property="og:title" content="JAVA中循环删除list中元素的方法总结">
+<meta property="og:url" content="http://vi1zen.cn/2017/07/14/JAVA中循环删除list中元素的方法总结/index.html">
 <meta property="og:site_name" content="vi1zen">
-<meta property="og:description" content="NexT的主题背景看久了会有些闷，所以想改下背景，网上搜了下发现基本都是直接设置一张静态图片，我想能不能利用HTML5的canvas特性设置一个动态背景呢，答案是可以的，详细教程如下：">
-<meta property="og:image" content="http://ol9j5v5dg.bkt.clouddn.com/NexT_background_image.png">
-<meta property="og:updated_time" content="2017-03-10T06:46:20.279Z">
+<meta property="og:description" content="印象中循环删除list中的元素使用for循环的方式是有问题的，但是可以使用增强的for循环，然后今天在使用时发现报错了，然后去科普了一下，再然后发现这是一个误区。下面就来讲一讲…
+JAVA中循环遍历list有三种方式for循环、增强for循环（也就是常说的foreach循环）、iterator遍历。">
+<meta property="og:updated_time" content="2017-07-14T01:40:42.310Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用canvas-next.js设置NexT主题背景">
-<meta name="twitter:description" content="NexT的主题背景看久了会有些闷，所以想改下背景，网上搜了下发现基本都是直接设置一张静态图片，我想能不能利用HTML5的canvas特性设置一个动态背景呢，答案是可以的，详细教程如下：">
-<meta name="twitter:image" content="http://ol9j5v5dg.bkt.clouddn.com/NexT_background_image.png">
+<meta name="twitter:title" content="JAVA中循环删除list中元素的方法总结">
+<meta name="twitter:description" content="印象中循环删除list中的元素使用for循环的方式是有问题的，但是可以使用增强的for循环，然后今天在使用时发现报错了，然后去科普了一下，再然后发现这是一个误区。下面就来讲一讲…
+JAVA中循环遍历list有三种方式for循环、增强for循环（也就是常说的foreach循环）、iterator遍历。">
 
 
 
@@ -138,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="http://vi1zen.cn/2017/02/12/利用canvas-next.js设置NexT主题背景/"/>
+  <link rel="canonical" href="http://vi1zen.cn/2017/07/14/JAVA中循环删除list中元素的方法总结/"/>
 
 
 
 
 
-  <title> 利用canvas-next.js设置NexT主题背景 | vi1zen </title>
+  <title> JAVA中循环删除list中元素的方法总结 | vi1zen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -291,7 +292,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://vi1zen.cn/2017/02/12/利用canvas-next.js设置NexT主题背景/">
+  <link itemprop="mainEntityOfPage" href="http://vi1zen.cn/2017/07/14/JAVA中循环删除list中元素的方法总结/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="vi1zen">
@@ -315,7 +316,7 @@
             
             
               
-                利用canvas-next.js设置NexT主题背景
+                JAVA中循环删除list中元素的方法总结
               
             
           </h1>
@@ -330,8 +331,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-12T20:09:21+08:00">
-                2017-02-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-14T09:35:35+08:00">
+                2017-07-14
               </time>
             
 
@@ -353,8 +354,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NexT/" itemprop="url" rel="index">
-                    <span itemprop="name">NexT</span>
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
                   </a>
                 </span>
 
@@ -371,7 +372,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/02/12/利用canvas-next.js设置NexT主题背景/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/07/14/JAVA中循环删除list中元素的方法总结/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -380,7 +381,7 @@
 
           
           
-             <span id="/2017/02/12/利用canvas-next.js设置NexT主题背景/" class="leancloud_visitors" data-flag-title="利用canvas-next.js设置NexT主题背景">
+             <span id="/2017/07/14/JAVA中循环删除list中元素的方法总结/" class="leancloud_visitors" data-flag-title="JAVA中循环删除list中元素的方法总结">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -409,44 +410,24 @@
       
 
       
-        <p>  NexT的主题背景看久了会有些闷，所以想改下背景，网上搜了下发现基本都是直接设置一张静态图片，我想能不能利用HTML5的canvas特性设置一个动态背景呢，答案是可以的，详细教程如下：</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><img src="http://ol9j5v5dg.bkt.clouddn.com/NexT_background_image.png" alt="示例背景图"></h2><a id="more"></a>
-<h3 id="canvas-nest-js介绍"><a href="#canvas-nest-js介绍" class="headerlink" title="canvas-nest.js介绍"></a>canvas-nest.js介绍</h3><blockquote>
-<p><strong>canvas-nest.js</strong></p>
-<p>一个基于html5 canvas绘制的网页背景效果，非常赞！如果需要 wordpress插件，在插件库搜索 canvas-nest 或者看看项目 canvas-nest-for-wp。</p>
-</blockquote>
-<h4 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h4><blockquote>
+        <p>印象中循环删除list中的元素使用for循环的方式是有问题的，但是可以使用增强的for循环，然后今天在使用时发现报错了，然后去科普了一下，再然后发现这是一个误区。下面就来讲一讲…</p>
+<p>JAVA中循环遍历list有三种方式for循环、增强for循环（也就是常说的foreach循环）、iterator遍历。</p>
+<a id="more"></a>
+<p><strong>1、for循环遍历list</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;list.size();i++)&#123;</div><div class="line">    <span class="keyword">if</span>(list.get(i).equals(<span class="string">"del"</span>))</div><div class="line">        list.remove(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p> 　　这种方式的问题在于，删除某个元素后，list的大小发生了变化，而你的索引也在变化，所以会导致你在遍历的时候漏掉某些元素。比如当你删除第1个元素后，继续根据索引访问第2个元素时，因为删除的关系后面的元素都往前移动了一位，所以实际访问的是第3个元素。因此，这种方式可以用在删除特定的一个元素时使用，但不适合循环删除多个元素时使用。</p>
+<p><strong>2、增强for循环</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(String x:list)&#123;</div><div class="line">    <span class="keyword">if</span>(x.equals(<span class="string">"del"</span>))</div><div class="line">        list.remove(x);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> 　　这种方式的问题在于，删除元素后继续循环会报错误信息ConcurrentModificationException，因为元素在使用的时候发生了并发的修改，导致异常抛出。<strong>但是删除完毕马上使用break跳出，则不会触发报错。（不推荐）</strong></p>
+<p><strong>3、iterator遍历</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Iterator&lt;String&gt; it = list.iterator();</div><div class="line"><span class="keyword">while</span>(it.hasNext())&#123;</div><div class="line">    String x = it.next();</div><div class="line">    <span class="keyword">if</span>(x.equals(<span class="string">"del"</span>))&#123;</div><div class="line">        it.remove();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　这种方式可以正常的循环及删除。但要注意的是，使用iterator的remove方法，如果用list的remove方法同样会报上面提到的ConcurrentModificationException错误。</p>
+<p><strong>总结：</strong></p>
 <ul>
-<li>不依赖任何框架或者内库，比如不依赖 jQuery，使用原生的 javascript。</li>
-<li>非常小，只有1.6 kb，如果开启 gzip，可以更小。</li>
-<li>非常容易实现，配置简单，即使你不是web开发者，也能简单搞定。</li>
+<li><p>循环删除list中特定一个元素的，可以使用三种方式中的任意一种，但在使用中要注意上面分析的各个问题。</p>
+</li>
+<li><p>循环删除list中多个元素的，应该使用迭代器iterator方式。</p>
+</li>
 </ul>
-</blockquote>
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>使用非常简单，感觉都没有必要写这一节内容。</p>
-<p>将下面的代码插入到 <body> 和 </body> 之间.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"</span>&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>强烈建议在 标签上方. 例如下面的代码结构:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	...</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	...</div><div class="line">	...</div><div class="line">    &lt;script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"&gt;</div><div class="line">    &lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<p>请注意不要将代码置于<code>&lt;head&gt; &lt;/head&gt;</code>里面.</p>
-<p>然后就完成了，打开网页即可看到效果!</p>
-<p>配置和配置项</p>
-<blockquote>
-<ul>
-<li>color: 线条颜色, 默认: ‘0,0,0’ ；三个数字分别为(R,G,B)，注意用,分割</li>
-<li>opacity: 线条透明度（0~1）, 默认: 0.5</li>
-<li>count: 线条的总数量, 默认: 150</li>
-<li>zIndex: 背景的z-index属性，css属性用于控制所在层的位置, 默认: -1</li>
-<li>Example:</li>
-</ul>
-</blockquote>
-<p><script type="text/javascript" color="0,0,255" opacity="0.7" zindex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script><br>这些属性配置在引用js的script标签中，作为它的一个属性值。所有的配置项都有默认值，如果你不知道怎么设置，可以先不设置这些配置项，就使用默认值看看效果也可以的。</p>
-<blockquote>
-<p>以上转载自<a href="https://github.com/hustcc/canvas-nest.js/blob/master/README-zh.md" target="_blank" rel="external">https://github.com/hustcc/canvas-nest.js/blob/master/README-zh.md</a></p>
-</blockquote>
-<h3 id="主题配置文件"><a href="#主题配置文件" class="headerlink" title="主题配置文件"></a>主题配置文件</h3><p>在站点配置文件中新增以下内容</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Canvas-nest</div><div class="line">canvas_nest: true</div><div class="line"></div><div class="line">vendors://此处不设置也行</div><div class="line">    canvas_nest: //cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js</div></pre></td></tr></table></figure>
-<p>在<code>\themes\next\layout\_scripts\vendors.swig</code>文件中新增以下内容</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;% <span class="keyword">if</span> theme.canvas_nest %&#125;</div><div class="line">  &#123;% set js_vendors.canvas_nest  = <span class="string">'canvas-nest/canvas-nest.min.js'</span> %&#125;</div><div class="line">  &lt;script type=<span class="string">"text/javascript"</span> color=<span class="string">"0,0,255"</span> opacity=<span class="string">'0.5'</span> zIndex=<span class="string">"-2"</span> count=<span class="string">"100"</span> src=<span class="string">"//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"</span>&gt;&lt;/script&gt;</div><div class="line">&#123;% endif %&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -470,9 +451,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/NexT/" rel="tag"># NexT</a>
-          
-            <a href="/tags/canvas-nest-js/" rel="tag"># canvas-nest.js</a>
+            <a href="/tags/list/" rel="tag"># list</a>
           
         </div>
       
@@ -485,8 +464,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/09/利用github pages + Hexo搭建个人博客/" rel="next" title="利用Hexo + NexT搭建个人博客">
-                <i class="fa fa-chevron-left"></i> 利用Hexo + NexT搭建个人博客
+              <a href="/2017/06/01/Android焦点获取/" rel="next" title="Android焦点获取">
+                <i class="fa fa-chevron-left"></i> Android焦点获取
               </a>
             
           </div>
@@ -494,10 +473,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/06/Android退出应用最优雅的方式/" rel="prev" title="Android退出应用最优雅的方式">
-                Android退出应用最优雅的方式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -552,17 +527,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avater.jpg"
@@ -629,22 +595,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#canvas-nest-js介绍"><span class="nav-number">1.1.</span> <span class="nav-text">canvas-nest.js介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#特性"><span class="nav-number">1.1.1.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">1.1.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题配置文件"><span class="nav-number">1.2.</span> <span class="nav-text">主题配置文件</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
     </div>
