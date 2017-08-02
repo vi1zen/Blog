@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http://vi1zen.cn/2017/08/02/%E5%85%B3%E4%BA%8EArrayList%E7%9A%84clone%E6%96%B9%E6%B3%95%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/</loc>
+    <lastmod>2017-08-02T06:15:09.241Z</lastmod>
+    <data>
+        <display>
+        <title>关于ArrayList的clone方法的一些理解</title>
+        <pubTime>2017-08-02T02:55:37.000Z</pubTime>
+        
+        <tag>ArrayList</tag>
+         
+        <tag>clone</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://vi1zen.cn/2017/07/28/Android_RSA%E5%8A%A0%E8%A7%A3%E5%AF%86/</loc>
     <lastmod>2017-07-28T02:10:41.740Z</lastmod>
     <data>
@@ -236,9 +258,9 @@
         <title>利用Hexo + NexT搭建个人博客</title>
         <pubTime>2017-02-09T13:12:08.479Z</pubTime>
         
-        <tag>NexT</tag>
-         
         <tag>Hexo</tag>
+         
+        <tag>NexT</tag>
          
          
            
