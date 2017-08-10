@@ -4,8 +4,28 @@
 
     
   <url>
+    <loc>http://vi1zen.cn/2017/08/10/Android%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B8%8EStartActivityForResult%E7%9A%84%E5%85%B3%E7%B3%BB/</loc>
+    <lastmod>2017-08-10T08:13:44.834Z</lastmod>
+    <data>
+        <display>
+        <title>Android启动模式与StartActivityForResult的关系</title>
+        <pubTime>2017-08-10T08:10:35.000Z</pubTime>
+        
+        <tag>启动模式</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://vi1zen.cn/2017/08/02/%E5%85%B3%E4%BA%8EArrayList%E7%9A%84clone%E6%96%B9%E6%B3%95%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/</loc>
-    <lastmod>2017-08-02T06:19:05.832Z</lastmod>
+    <lastmod>2017-08-02T06:21:11.698Z</lastmod>
     <data>
         <display>
         <title>关于ArrayList的clone方法的一些理解</title>
