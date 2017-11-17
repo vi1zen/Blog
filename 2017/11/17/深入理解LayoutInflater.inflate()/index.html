@@ -83,7 +83,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ArrayList,clone," />
+  <meta name="keywords" content="动态布局," />
 
 
 
@@ -99,19 +99,16 @@
 
 
 
-<meta name="description" content="1. ArrayList的clone方法源码1234567891011121314151617/** * Returns a shallow copy of this &amp;lt;tt&amp;gt;ArrayList&amp;lt;/tt&amp;gt; instance.  (The * elements themselves are not copied.) * * @return a clone of this &amp;l">
+<meta name="description" content="由于我们很容易习惯公式化的预置代码，有时我们会忽略很优雅的细节。LayoutInflater以及它在Fragment的onCreateView()中填充View的方式带给我的就是这样的感受。这个类用于将XML文件转换成相对应的ViewGroup和控件Widget。我尝试在Google官方文档与网络上其他讨论中寻找有关的说明，而后发现许多人不但不清楚LayoutInflater的inflate()方">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于ArrayList的clone方法的一些理解">
-<meta property="og:url" content="http://vi1zen.cn/2017/08/02/关于ArrayList的clone方法的一些理解/index.html">
+<meta property="og:title" content="深入理解LayoutInflater.inflate()">
+<meta property="og:url" content="http://vi1zen.cn/2017/11/17/深入理解LayoutInflater.inflate()/index.html">
 <meta property="og:site_name" content="vi1zen">
-<meta property="og:description" content="1. ArrayList的clone方法源码1234567891011121314151617/** * Returns a shallow copy of this &amp;lt;tt&amp;gt;ArrayList&amp;lt;/tt&amp;gt; instance.  (The * elements themselves are not copied.) * * @return a clone of this &amp;l">
-<meta property="og:image" content="http://ol9j5v5dg.bkt.clouddn.com/before_remove.png">
-<meta property="og:image" content="http://ol9j5v5dg.bkt.clouddn.com/after_remove.png">
-<meta property="og:updated_time" content="2017-08-02T06:21:11.698Z">
+<meta property="og:description" content="由于我们很容易习惯公式化的预置代码，有时我们会忽略很优雅的细节。LayoutInflater以及它在Fragment的onCreateView()中填充View的方式带给我的就是这样的感受。这个类用于将XML文件转换成相对应的ViewGroup和控件Widget。我尝试在Google官方文档与网络上其他讨论中寻找有关的说明，而后发现许多人不但不清楚LayoutInflater的inflate()方">
+<meta property="og:updated_time" content="2017-11-17T06:14:30.276Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于ArrayList的clone方法的一些理解">
-<meta name="twitter:description" content="1. ArrayList的clone方法源码1234567891011121314151617/** * Returns a shallow copy of this &amp;lt;tt&amp;gt;ArrayList&amp;lt;/tt&amp;gt; instance.  (The * elements themselves are not copied.) * * @return a clone of this &amp;l">
-<meta name="twitter:image" content="http://ol9j5v5dg.bkt.clouddn.com/before_remove.png">
+<meta name="twitter:title" content="深入理解LayoutInflater.inflate()">
+<meta name="twitter:description" content="由于我们很容易习惯公式化的预置代码，有时我们会忽略很优雅的细节。LayoutInflater以及它在Fragment的onCreateView()中填充View的方式带给我的就是这样的感受。这个类用于将XML文件转换成相对应的ViewGroup和控件Widget。我尝试在Google官方文档与网络上其他讨论中寻找有关的说明，而后发现许多人不但不清楚LayoutInflater的inflate()方">
 
 
 
@@ -139,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://vi1zen.cn/2017/08/02/关于ArrayList的clone方法的一些理解/"/>
+  <link rel="canonical" href="http://vi1zen.cn/2017/11/17/深入理解LayoutInflater.inflate()/"/>
 
 
 
 
 
-  <title> 关于ArrayList的clone方法的一些理解 | vi1zen </title>
+  <title> 深入理解LayoutInflater.inflate() | vi1zen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -292,7 +289,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://vi1zen.cn/2017/08/02/关于ArrayList的clone方法的一些理解/">
+  <link itemprop="mainEntityOfPage" href="http://vi1zen.cn/2017/11/17/深入理解LayoutInflater.inflate()/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="vi1zen">
@@ -316,7 +313,7 @@
             
             
               
-                关于ArrayList的clone方法的一些理解
+                深入理解LayoutInflater.inflate()
               
             
           </h1>
@@ -331,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-02T10:55:37+08:00">
-                2017-08-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-17T14:05:02+08:00">
+                2017-11-17
               </time>
             
 
@@ -371,7 +368,7 @@
 
           
           
-             <span id="/2017/08/02/关于ArrayList的clone方法的一些理解/" class="leancloud_visitors" data-flag-title="关于ArrayList的clone方法的一些理解">
+             <span id="/2017/11/17/深入理解LayoutInflater.inflate()/" class="leancloud_visitors" data-flag-title="深入理解LayoutInflater.inflate()">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -400,31 +397,60 @@
       
 
       
-        <h3 id="1-ArrayList的clone方法源码"><a href="#1-ArrayList的clone方法源码" class="headerlink" title="1. ArrayList的clone方法源码"></a>1. ArrayList的clone方法源码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Returns a shallow copy of this &lt;tt&gt;ArrayList&lt;/tt&gt; instance.  (The</div><div class="line"> * elements themselves are not copied.)</div><div class="line"> *</div><div class="line"> * <span class="doctag">@return</span> a clone of this &lt;tt&gt;ArrayList&lt;/tt&gt; instance</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        ArrayList&lt;?&gt; v = (ArrayList&lt;?&gt;) <span class="keyword">super</span>.clone();</div><div class="line">        v.elementData = Arrays.copyOf(elementData, size);</div><div class="line">        v.modCount = <span class="number">0</span>;</div><div class="line">        <span class="keyword">return</span> v;</div><div class="line">    &#125; <span class="keyword">catch</span> (CloneNotSupportedException e) &#123;</div><div class="line">        <span class="comment">// this shouldn't happen, since we are Cloneable</span></div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InternalError(e);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>该方法返回一个Object对象，所以在使用此方法的时候要强制转换。<br>ArrayList的本质是维护了一个Object的数组，所以克隆也是通过数组的复制实现的，对象不会被克隆，属于浅克隆。</p>
+        <p>由于我们很容易习惯公式化的预置代码，有时我们会忽略很优雅的细节。LayoutInflater以及它在Fragment的onCreateView()中填充View的方式带给我的就是这样的感受。这个类用于将XML文件转换成相对应的ViewGroup和控件Widget。我尝试在Google官方文档与网络上其他讨论中寻找有关的说明，而后发现<strong>许多人不但不清楚LayoutInflater的inflate()方法的细节，而且甚至在误用它。</strong></p>
+<p>这里的困惑很大程度上是因为Google上有关attachToRoot（也就是inflate()方法第三个参数）的文档太模糊：</p>
+<blockquote>
+<p>被填充的层是否应该附在root参数内部？如果是false，root参数只适用于为XML根元素View创建正确的LayoutParams的子类。</p>
+</blockquote>
+<p>其实意思就是：<strong>如果attachToRoot是true的话，那第一个参数的layout文件就会被填充并附加在第二个参数所指定的ViewGroup内。方法返回结合后的View，根元素是第二个参数ViewGroup。如果是false的话，第一个参数所指定的layout文件会被填充并作为View返回。这个View的根元素就是layout文件的根元素。不管是true还是false，都需要ViewGroup的LayoutParams来正确的测量与放置layout文件所产生的View对象。</strong></p>
 <a id="more"></a>
-<h3 id="2-ArrayList的clone浅复制的巧妙使用"><a href="#2-ArrayList的clone浅复制的巧妙使用" class="headerlink" title="2. ArrayList的clone浅复制的巧妙使用"></a>2. ArrayList的clone浅复制的巧妙使用</h3><p>当你需要使用remove方法移除掉集合中的对象，而非要修改集合中的对象的时候，可以选择使用。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加两个元素</span></div><div class="line">Student stJack=<span class="keyword">new</span> Student(<span class="string">"Jack"</span>, <span class="number">13</span>);</div><div class="line">Student stTom=<span class="keyword">new</span> Student(<span class="string">"Tom"</span>, <span class="number">15</span>);</div><div class="line">list.add(stJack);</div><div class="line">list.add(stTom);</div><div class="line"></div><div class="line"><span class="comment">//克隆</span></div><div class="line">ArrayList&lt;Student&gt; listCopy=(ArrayList&lt;Student&gt;) list.clone();</div><div class="line"></div><div class="line"><span class="comment">//移除且不修改</span></div><div class="line">listCopy.remove(<span class="number">1</span>);</div><div class="line">System.out.println(list);</div><div class="line">System.out.println(listCopy);</div></pre></td></tr></table></figure>
-<p>输出结果<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[student[name=Jack,age=<span class="number">13</span>],[name=Tom,age=<span class="number">15</span>]]</div><div class="line">[student[name=Jack,age=<span class="number">13</span>]]</div></pre></td></tr></table></figure></p>
-<p>内存堆栈示意图</p>
+<p>attachToRoot传入true代表layout文件填充的View会被直接添加进ViewGroup，而传入false则代表创建的View会以其他方式被添加进ViewGroup。</p>
+<p>让我们就两种情况多举一些例子来更深入的理解。</p>
+<h2 id="attachToRoot是True"><a href="#attachToRoot是True" class="headerlink" title="attachToRoot是True"></a>attachToRoot是True</h2><p>假设我们在XML layout文件中写了一个Button并指定了宽高为match_parent。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line"><span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line"><span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line"><span class="attr">android:id</span>=<span class="string">"@+id/custom_button"</span>&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">Button</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>现在我们想动态地把这个按钮添加进Fragment或Activity的LinearLayout中。如果这里LinearLayout已经是一个成员变量mLinearLayout了，我们只需要通过如下代码达成目标：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">inflater.inflate(R.layout.custom_button, mLinearLayout, <span class="keyword">true</span>);</div></pre></td></tr></table></figure>
+<p>我们指定了用于填充button的layout资源文件，然后我们告诉LayoutInflater我们想把button添加到mLinearLayout中。这里Button的LayoutParams种类为LinearLayout.LayoutParams。</p>
+<p>下面的代码也有同样的效果。LayoutInflater的两个参数的inflate()方法自动将attachToRoot设置为true。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">inflater.inflate(R.layout.custom_button, mLinearLayout);</div></pre></td></tr></table></figure>
+<p>另一种在attachToRoot中传递true的情况是使用自定义View。我们看一个layout文件中根元素有<merge>标签的例子。<merge>标签标识着这个layout文件的根ViewGroup可以有多种类型。</merge></merge></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyCustomView</span> <span class="keyword">extends</span> <span class="title">LinearLayout</span> </span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</div><div class="line">        LayoutInflater inflater = LayoutInflater.from(getContext());</div><div class="line">        inflater.inflate(R.layout.view_with_merge_tag, <span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这就是一个很好的使用attachToRoot的例子。这个例子中layout文件没有ViewGroup作为根元素，所以我们指定我们自定义的LinearLayout作为根元素。如果layout文件有一个FrameLayout作为根元素而不是<code>&lt;merge&gt;</code>，那么FrameLayout和它的子元素都可以正常填充，而后都会被添加到LinearLayout中，LinearLayout是根ViewGroup，包含着FrameLayout和其子元素。</p>
+<h2 id="attachToRoot是False"><a href="#attachToRoot是False" class="headerlink" title="attachToRoot是False"></a>attachToRoot是False</h2><p>我们看一下什么时候attachToRoot应该是false。在这种情况下，inflate()方法中的第一个参数所指定的View不会被添加到第二个参数所指定的ViewGroup中。</p>
+<p>回忆一下刚才的例子中的Button，我们想通过layout文件添加自定义的Button至mLinearLayout中。当attachToRoot为false时，我们仍可以将Button添加到mLinearLayout中，但是这需要我们自己动手添加。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Button button = (Button) inflater.inflate(R.layout.custom_button, mLinearLayout, <span class="keyword">false</span>);</div><div class="line">mLinearLayout.addView(button);</div></pre></td></tr></table></figure>
+<p>这两行代码与刚才attachToRoot为true时的一行代码等效。通过传入false，我们告诉LayoutInflater我们不暂时还想将View添加到根元素ViewGroup中，意思是我们一会儿再添加。在这个例子中，一会儿再添加就是<strong>在inflate()后调用addView()</strong>方法。</p>
+<p>在将attachToRoot设置为false的例子中，由于要手动添加View进ViewGroup导致代码变多了。将Button添加到LinearLayout中还是用一行代码直接将attachToRoot设置为true简便一些,下面我们看一下什么情况下attachToRoot必须传入false。</p>
 <ul>
-<li>remove之前</li>
+<li>每一个RecyclerView的子元素都要在attachToRoot设置为false的情况下填充。这里子View在onCreateViewHolder()中填充。</li>
 </ul>
-<p><img src="http://ol9j5v5dg.bkt.clouddn.com/before_remove.png" alt="remove之前"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ViewHolder <span class="title">onCreateViewHolder</span><span class="params">(ViewGroup parent, <span class="keyword">int</span> viewType)</span> </span>&#123;</div><div class="line">    LayoutInflater inflater = LayoutInflater.from(getActivity());</div><div class="line">    View view = inflater.inflate(android.R.layout.list_item_recyclerView, parent, <span class="keyword">false</span>);</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ViewHolder(view);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>RecyclerView负责决定什么时候展示它的子View，这个不由我们决定。在任何我们不负责将View添加进ViewGroup的情况下都应该将attachToRoot设置为false。</p>
 <ul>
-<li>remove之后</li>
+<li>当在Fragment的onCreateView()方法中填充并返回View时，要将attachToRoot设为false。</li>
 </ul>
-<p><img src="http://ol9j5v5dg.bkt.clouddn.com/after_remove.png" alt="remove之后"></p>
+<p><code>如果传入true，会抛出IllegalStateException，因为指定的子View已经有父View了。你需要指定在哪里将Fragment的View放进Activity里，而添加、移除或替换Fragment则是FragmentManager的事情。</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">FragmentManager fragmentManager = getSupportFragmentManager();</div><div class="line">Fragment fragment = fragmentManager.findFragmentById(R.id.root_viewGroup);</div><div class="line"></div><div class="line"><span class="keyword">if</span> (fragment == <span class="keyword">null</span>) &#123;</div><div class="line">    fragment = <span class="keyword">new</span> MainFragment();</div><div class="line">    fragmentManager.beginTransaction().add(R.id.root_viewGroup, fragment).commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面代码中root_viewGroup就是Activity中用于放置Fragment的容器，它会作为inflate()方法中的第二个参数被传入onCreateView()中。它也是你在inflate()方法中传入的ViewGroup。FragmentManager会将Fragment的View添加到ViewGroup中，你可不想添加两次。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> View <span class="title">onCreateView</span><span class="params">(LayoutInflater inflater, ViewGroup parentViewGroup, Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    View view = inflater.inflate(R.layout.fragment_layout, parentViewGroup, <span class="keyword">false</span>);</div><div class="line">    …</div><div class="line">    <span class="keyword">return</span> view;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
-<p>可以看出：移除且不修改集合中的元素，只是在List内部的数组中移除了指向元素的地址，可以放心的使用clone。</p>
+<p>问题是：如果我们不需在onCreateView()中将View添加进ViewGroup，为什么还要传入ViewGroup呢？为什么inflate()方法必须要传入根ViewGroup？</p>
 </blockquote>
-<h3 id="3-实现List的深克隆"><a href="#3-实现List的深克隆" class="headerlink" title="3. 实现List的深克隆"></a>3. 实现List的深克隆</h3><p>如果你想要修改克隆后的集合，那么克隆前的也会被修改。那么就需要使用深克隆。<br>在浅度克隆的基础上，对于要克隆的对象中的非基本数据类型的属性对应的类，也实现克隆，这样对于非基本数据类型的属性，复制的不是一份引用，即新产生的对象和原始对象中的非基本数据类型的属性指向的不是同一个对象</p>
-<p><strong>深克隆步骤：</strong></p>
-<blockquote>
-<p>要克隆的类和类中所有非基本数据类型的属性对应的类<br>1、都实现java.lang.Cloneable接口<br>2、都重写java.lang.Object.clone()方法</p>
-</blockquote>
-<p>代码实例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testClone</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">            ArrayList&lt;Student&gt; list=<span class="keyword">new</span> ArrayList&lt;Student&gt;();</div><div class="line">            <span class="comment">//添加两个元素</span></div><div class="line">            Student stJack=<span class="keyword">new</span> Student(<span class="string">"Jack"</span>, <span class="number">13</span>);</div><div class="line">            Student stTom=<span class="keyword">new</span> Student(<span class="string">"Tom"</span>, <span class="number">15</span>);</div><div class="line">            list.add(stJack);</div><div class="line">            list.add(stTom);</div><div class="line">            <span class="comment">//深克隆</span></div><div class="line">            ArrayList&lt;Student&gt; listCopy=<span class="keyword">new</span> ArrayList&lt;Student&gt;();</div><div class="line">            <span class="keyword">for</span> (Student student : list) &#123;</div><div class="line">                listCopy.add(student.clone());</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//移除且不修改</span></div><div class="line">            listCopy.get(<span class="number">0</span>).setAge(<span class="number">20</span>);</div><div class="line">            System.out.println(list);</div><div class="line">            System.out.println(listCopy);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> age;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>();</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"Student [name="</span> + name + <span class="string">", age="</span> + age + <span class="string">"]"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> Student <span class="title">clone</span><span class="params">()</span></span>&#123;</div><div class="line">        Student stuent = <span class="keyword">new</span> Student(<span class="keyword">this</span>.name,<span class="keyword">this</span>.age); </div><div class="line">        <span class="keyword">return</span> stuent; </div><div class="line">    &#125;</div><div class="line">       </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>你在网上一定会遇到一些不正确的建议。有些人会建议你如果将attachToRoot设置为false的话直接将根ViewGroup传入null，但是，如果有父元素的话，还是应该传入的。<strong>原因是即使不需要马上将新填充的View添加进ViewGroup，我们还是需要这个父元素的LayoutParams来在将来添加时决定View的size和position。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> View <span class="title">onCreateView</span><span class="params">(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    View view = inflater.inflate(R.layout.fragment_layout,<span class="keyword">null</span>);</div><div class="line">    <span class="keyword">return</span> view;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Lint会警告你不要讲null作为root传入。你的App不会挂掉，但是可能会表现异常。当你的子View没有正确的LayoutParams时，它会自己通过generateDefaultLayoutParams计算。</p>
+<p><strong>你可能并不想要这些默认的LayoutParams。你在XML指定的LayoutParams会被忽略。</strong>我们可能已经指定了子View要填充父元素的宽度，但父View又wrap_content导致最终的View小很多。</p>
+<p>下面是一种没有ViewGroup作为root传入inflate()方法的情况。<br>当为AlertDialog创建自定义View时，还无法访问父元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">AlertDialog.Builder dialogBuilder = <span class="keyword">new</span> AlertDialog.Builder(mContext);</div><div class="line">View customView = inflater.inflate(R.layout.custom_alert_dialog, <span class="keyword">null</span>);</div><div class="line">...</div><div class="line">dialogBuilder.setView(customView);</div><div class="line">dialogBuilder.show();</div></pre></td></tr></table></figure>
+<p>在这种情况下，可以将null作为root ViewGroup传入。后来我发现AlertDialog还是会重写LayoutParams并设置各项参数为match_parent。但是，规则还是在有ViewGroup可以传入时传入它。</p>
+<h2 id="避开崩溃、异常表现与误解"><a href="#避开崩溃、异常表现与误解" class="headerlink" title="避开崩溃、异常表现与误解"></a>避开崩溃、异常表现与误解</h2><p>希望这篇文章可以帮助你在使用LayoutInflater时避开崩溃、异常表现与误解。下面整理了文章的要点：</p>
+<ul>
+<li>如果可以传入ViewGroup作为根元素，那就传入它。</li>
+<li>避免将null作为根ViewGroup传入。</li>
+<li>当我们不负责将layout文件的View添加进ViewGroup时设置attachToRoot参数为false。</li>
+<li>不要在View已经被添加进ViewGroup时传入true。</li>
+<li>自定义View时很适合将attachToRoot设置为true。</li>
+</ul>
 
       
     </div>
@@ -448,9 +474,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ArrayList/" rel="tag"># ArrayList</a>
-          
-            <a href="/tags/clone/" rel="tag"># clone</a>
+            <a href="/tags/动态布局/" rel="tag"># 动态布局</a>
           
         </div>
       
@@ -463,8 +487,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/28/Android_RSA加解密/" rel="next" title="Android RSA加解密">
-                <i class="fa fa-chevron-left"></i> Android RSA加解密
+              <a href="/2017/08/10/Android启动模式与StartActivityForResult的关系/" rel="next" title="Android启动模式与StartActivityForResult的关系">
+                <i class="fa fa-chevron-left"></i> Android启动模式与StartActivityForResult的关系
               </a>
             
           </div>
@@ -472,10 +496,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/10/Android启动模式与StartActivityForResult的关系/" rel="prev" title="Android启动模式与StartActivityForResult的关系">
-                Android启动模式与StartActivityForResult的关系 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -634,7 +654,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-ArrayList的clone方法源码"><span class="nav-number">1.</span> <span class="nav-text">1. ArrayList的clone方法源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-ArrayList的clone浅复制的巧妙使用"><span class="nav-number">2.</span> <span class="nav-text">2. ArrayList的clone浅复制的巧妙使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-实现List的深克隆"><span class="nav-number">3.</span> <span class="nav-text">3. 实现List的深克隆</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#attachToRoot是True"><span class="nav-number">1.</span> <span class="nav-text">attachToRoot是True</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#attachToRoot是False"><span class="nav-number">2.</span> <span class="nav-text">attachToRoot是False</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避开崩溃、异常表现与误解"><span class="nav-number">3.</span> <span class="nav-text">避开崩溃、异常表现与误解</span></a></li></ol></div>
             
 
           </div>
