@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="vi1zen">
 <meta property="og:description" content="引言ConstraintLayout是Android Studio 2.2中主要的新增功能之一，也是Google在去年的I/O大会上重点宣传的一个功能。ConstraintLayout最显著的优点就是它可以有效地解决布局嵌套过多的问题。我们平时编写界面，复杂的布局总会伴随着多层的嵌套，而嵌套越多，程序的性能也就越差。ConstraintLayout则是使用约束的方式来指定各个控件的位置和关系的，它">
 <meta property="og:image" content="http://ol9j5v5dg.bkt.clouddn.com/constraint_item.png">
-<meta property="og:updated_time" content="2018-02-06T03:14:32.651Z">
+<meta property="og:updated_time" content="2018-02-06T03:22:33.131Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用ConstraintLayout解决布局嵌套，提高性能">
 <meta name="twitter:description" content="引言ConstraintLayout是Android Studio 2.2中主要的新增功能之一，也是Google在去年的I/O大会上重点宣传的一个功能。ConstraintLayout最显著的优点就是它可以有效地解决布局嵌套过多的问题。我们平时编写界面，复杂的布局总会伴随着多层的嵌套，而嵌套越多，程序的性能也就越差。ConstraintLayout则是使用约束的方式来指定各个控件的位置和关系的，它">
@@ -431,7 +431,7 @@
 <p>上面代码是表示垂直居中的意思</p>
 <h4 id="引导线（可用来百分比布局）"><a href="#引导线（可用来百分比布局）" class="headerlink" title="引导线（可用来百分比布局）"></a>引导线（可用来百分比布局）</h4><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;!--水平平分线--&gt;</div><div class="line">&lt;android.support.constraint.Guideline</div><div class="line">    android:id="@+id/guideline"</div><div class="line">    android:layout_width="match_parent"</div><div class="line">    android:layout_height="wrap_content"</div><div class="line">    android:orientation="horizontal"</div><div class="line">    app:layout_constraintGuide_percent="0.5"&gt;</div><div class="line">&lt;/android.support.constraint.Guideline&gt;</div></pre></td></tr></table></figure>
 <p>GuideLine也叫做辅助线，分为垂直和水平方向，查看源码可以看到它的draw()方法是空实现，也就表示在它不会真正绘制，只是起辅助作用，通过辅助线可以简单实现百分比布局等功能。通过GuideLine和app:layout_constraintXX_toXXOf=”XX”配合使用，基本可以实现所有复杂布局。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>ConstraintLayout作为新的布局容器，优点是能良好的解决布局嵌套带来的性能问题，在追求性能的页面很有必要使用，缺点就是便利性不够，简而言之就是稍显麻烦，一般对性能要求不高的页面不是很必要。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>ConstraintLayout作为新的布局容器，优点是能良好的解决布局嵌套带来的性能问题，在追求性能的页面很有必要使用，缺点就是便利性不够，简而言之就是稍显麻烦，一般对性能要求不高的页面不是很必要，这个希望能继续优化吧，大家在日常工作中根据实际情况来使用就行了。</p>
 
       
     </div>
