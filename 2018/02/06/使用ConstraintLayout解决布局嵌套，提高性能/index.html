@@ -1,0 +1,936 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ConstraintLayout," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="引言ConstraintLayout是Android Studio 2.2中主要的新增功能之一，也是Google在去年的I/O大会上重点宣传的一个功能。ConstraintLayout最显著的优点就是它可以有效地解决布局嵌套过多的问题。我们平时编写界面，复杂的布局总会伴随着多层的嵌套，而嵌套越多，程序的性能也就越差。ConstraintLayout则是使用约束的方式来指定各个控件的位置和关系的，它">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用ConstraintLayout解决布局嵌套，提高性能">
+<meta property="og:url" content="http://vi1zen.cn/2018/02/06/使用ConstraintLayout解决布局嵌套，提高性能/index.html">
+<meta property="og:site_name" content="vi1zen">
+<meta property="og:description" content="引言ConstraintLayout是Android Studio 2.2中主要的新增功能之一，也是Google在去年的I/O大会上重点宣传的一个功能。ConstraintLayout最显著的优点就是它可以有效地解决布局嵌套过多的问题。我们平时编写界面，复杂的布局总会伴随着多层的嵌套，而嵌套越多，程序的性能也就越差。ConstraintLayout则是使用约束的方式来指定各个控件的位置和关系的，它">
+<meta property="og:image" content="http://ol9j5v5dg.bkt.clouddn.com/constraint_item.png">
+<meta property="og:updated_time" content="2018-02-06T03:14:32.651Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用ConstraintLayout解决布局嵌套，提高性能">
+<meta name="twitter:description" content="引言ConstraintLayout是Android Studio 2.2中主要的新增功能之一，也是Google在去年的I/O大会上重点宣传的一个功能。ConstraintLayout最显著的优点就是它可以有效地解决布局嵌套过多的问题。我们平时编写界面，复杂的布局总会伴随着多层的嵌套，而嵌套越多，程序的性能也就越差。ConstraintLayout则是使用约束的方式来指定各个控件的位置和关系的，它">
+<meta name="twitter:image" content="http://ol9j5v5dg.bkt.clouddn.com/constraint_item.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://vi1zen.cn/2018/02/06/使用ConstraintLayout解决布局嵌套，提高性能/"/>
+
+
+
+
+
+  <title> 使用ConstraintLayout解决布局嵌套，提高性能 | vi1zen </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?529acbba300aa42a3969faa70841ccc7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">vi1zen</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://vi1zen.cn/2018/02/06/使用ConstraintLayout解决布局嵌套，提高性能/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="vi1zen">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avater.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="vi1zen">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="vi1zen" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用ConstraintLayout解决布局嵌套，提高性能
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-06T11:14:15+08:00">
+                2018-02-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/02/06/使用ConstraintLayout解决布局嵌套，提高性能/" class="leancloud_visitors" data-flag-title="使用ConstraintLayout解决布局嵌套，提高性能">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>ConstraintLayout是Android Studio 2.2中主要的新增功能之一，也是Google在去年的I/O大会上重点宣传的一个功能。<br>ConstraintLayout最显著的优点就是它可以<strong>有效地解决布局嵌套过多</strong>的问题。我们平时编写界面，复杂的布局总会伴随着多层的嵌套，而嵌套越多，程序的性能也就越差。ConstraintLayout则是使用约束的方式来指定各个控件的位置和关系的，它有点类似于RelativeLayout，但远比RelativeLayout要更强大。</p>
+<h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><p>我们需要在app/build.gradle文件中添加ConstraintLayout的依赖</p>
+<p>Android Studio 3.0以下</p>
+<blockquote>
+<p>compile ‘com.android.support.constraint:constraint-layout:1.0.2’</p>
+</blockquote>
+<p>Android Studio3.0以上</p>
+<blockquote>
+<p>implementation ‘com.android.support.constraint:constraint-layout:1.0.2’</p>
+</blockquote>
+<p>Android Studio 3.0增加了许多新特性，依赖关键字的变化是其中之一，使用<code>implementation</code>是新版本Android Studio默认的依赖关键字，它可以隐藏依赖的内部细节，加快编译速度。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>首先来看一个例子:<br><img src="http://ol9j5v5dg.bkt.clouddn.com/constraint_item.png" alt="item_list"><br>要实现上图所示的效果你一定在想这很简单啊，刷刷的就写出来了，然后发现嵌套了三四层，要是再放到列表里面你会发现页面滑动时很不流畅，这时就轮到ConstraintLayout出场了，先贴代码</p>
+<a id="more"></a>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line">&lt;android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"</div><div class="line">    xmlns:app="http://schemas.android.com/apk/res-auto"</div><div class="line">    xmlns:tools="http://schemas.android.com/tools"</div><div class="line">    android:layout_width="match_parent"</div><div class="line">    android:layout_height="@dimen/ui_180dp"</div><div class="line">    android:background="@color/white"&gt;</div><div class="line"></div><div class="line"></div><div class="line">    &lt;View</div><div class="line">        android:id="@+id/view_mark"</div><div class="line">        android:layout_width="@dimen/ui_5dp"</div><div class="line">        android:layout_height="@dimen/one_and_a_half_grid_unit"</div><div class="line">        android:layout_marginLeft="@dimen/ui_padding_10dp"</div><div class="line">        android:background="@color/blue_line_chart"</div><div class="line">        app:layout_constraintLeft_toRightOf="parent"</div><div class="line">        app:layout_constraintTop_toTopOf="@+id/tv_title"</div><div class="line">        app:layout_constraintBottom_toBottomOf="@id/tv_title"/&gt;</div><div class="line">    </div><div class="line">    &lt;TextView</div><div class="line">        android:id="@+id/tv_title"</div><div class="line">        android:layout_width="wrap_content"</div><div class="line">        android:layout_height="wrap_content"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/view_mark"</div><div class="line">        app:layout_constraintTop_toBottomOf="parent"</div><div class="line">        android:layout_marginLeft="@dimen/ui_padding_10dp"</div><div class="line">        android:layout_marginTop="@dimen/ui_padding_10dp"</div><div class="line">        android:textSize="@dimen/ui_textsize_14sp"</div><div class="line">        android:textColor="@color/black_title"</div><div class="line">        tools:text="探鱼高新店"/&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:id="@+id/tv_leftItem"</div><div class="line">        android:layout_width="0dp"</div><div class="line">        android:layout_height="wrap_content"</div><div class="line">        android:text="125,556,315"</div><div class="line">        android:textColor="@color/black_title"</div><div class="line">        android:paddingLeft="@dimen/ui_padding_10dp"</div><div class="line">        android:gravity="center"</div><div class="line">        app:layout_constraintBottom_toBottomOf="parent"</div><div class="line">        app:layout_constraintStart_toStartOf="parent"</div><div class="line">        app:layout_constraintTop_toTopOf="parent"</div><div class="line">        app:layout_constraintRight_toLeftOf="@+id/guideline"/&gt;</div><div class="line"></div><div class="line">    &lt;!--垂直平分线--&gt;</div><div class="line">    &lt;android.support.constraint.Guideline</div><div class="line">        android:id="@+id/guideline"</div><div class="line">        android:layout_width="wrap_content"</div><div class="line">        android:layout_height="wrap_content"</div><div class="line">        android:orientation="vertical"</div><div class="line">        app:layout_constraintRight_toLeftOf="@id/circlePoint1"</div><div class="line">        app:layout_constraintGuide_percent="0.5" /&gt;</div><div class="line"></div><div class="line">    &lt;!--垂直右边界线--&gt;</div><div class="line">    &lt;android.support.constraint.Guideline</div><div class="line">        android:id="@+id/guideline1"</div><div class="line">        android:layout_width="wrap_content"</div><div class="line">        android:layout_height="wrap_content"</div><div class="line">        android:orientation="vertical"</div><div class="line">        app:layout_constraintGuide_percent="1" /&gt;</div><div class="line"></div><div class="line">    &lt;!--水平平分线--&gt;</div><div class="line">    &lt;android.support.constraint.Guideline</div><div class="line">        android:id="@+id/guideline2"</div><div class="line">        android:layout_width="match_parent"</div><div class="line">        android:layout_height="wrap_content"</div><div class="line">        android:orientation="horizontal"</div><div class="line">        app:layout_constraintGuide_percent="0.5"/&gt;</div><div class="line"></div><div class="line">    &lt;com.wangcaibao.erp.view.erpview.CirclePointView</div><div class="line">        android:id="@+id/circlePoint1"</div><div class="line">        android:layout_width="@dimen/ui_5dp"</div><div class="line">        android:layout_height="@dimen/ui_5dp"</div><div class="line">        app:fillColor="@color/gray"</div><div class="line">        app:layout_constraintLeft_toRightOf="@+id/guideline"</div><div class="line">        app:layout_constraintBottom_toBottomOf="@+id/tv_rightItem1"</div><div class="line">        app:layout_constraintTop_toTopOf="@+id/tv_rightItem1" /&gt;</div><div class="line"></div><div class="line">    &lt;com.wangcaibao.erp.view.erpview.CirclePointView</div><div class="line">        android:id="@+id/circlePoint2"</div><div class="line">        android:layout_width="@dimen/ui_5dp"</div><div class="line">        android:layout_height="@dimen/ui_5dp"</div><div class="line">        app:fillColor="@color/gray"</div><div class="line">        app:layout_constraintBottom_toBottomOf="@+id/tv_rightItem2"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/guideline"</div><div class="line">        app:layout_constraintTop_toTopOf="@+id/tv_rightItem2" /&gt;</div><div class="line"></div><div class="line">    &lt;com.wangcaibao.erp.view.erpview.CirclePointView</div><div class="line">        android:id="@+id/circlePoint3"</div><div class="line">        android:layout_width="@dimen/ui_5dp"</div><div class="line">        android:layout_height="@dimen/ui_5dp"</div><div class="line">        app:fillColor="@color/gray"</div><div class="line">        app:layout_constraintBottom_toBottomOf="@+id/tv_rightItem3"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/guideline"</div><div class="line">        app:layout_constraintTop_toTopOf="@+id/tv_rightItem3" /&gt;</div><div class="line"></div><div class="line">    &lt;com.wangcaibao.erp.view.erpview.CirclePointView</div><div class="line">        android:id="@+id/circlePoint4"</div><div class="line">        android:layout_width="@dimen/ui_5dp"</div><div class="line">        android:layout_height="@dimen/ui_5dp"</div><div class="line">        app:fillColor="@color/gray"</div><div class="line">        app:layout_constraintBottom_toBottomOf="@+id/tv_rightItem4"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/guideline"</div><div class="line">        app:layout_constraintTop_toTopOf="@+id/tv_rightItem4" /&gt;</div><div class="line"></div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:id="@+id/tv_rightItem1"</div><div class="line">        android:layout_width="@dimen/ui_title_height"</div><div class="line">        android:layout_height="@dimen/ui_title_height"</div><div class="line">        android:gravity="center_vertical|right"</div><div class="line">        android:textColor="@color/gray_text"</div><div class="line">        android:textSize="@dimen/ui_textsize_12sp"</div><div class="line">        android:text="点餐:"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/circlePoint1"</div><div class="line">        app:layout_constraintBottom_toTopOf="@id/tv_rightItem2"/&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:id="@+id/tv_number1"</div><div class="line">        android:layout_width="@dimen/ui_title_width"</div><div class="line">        android:layout_height="@dimen/ui_title_height"</div><div class="line">        android:gravity="right|center_vertical"</div><div class="line">        android:textColor="@color/black_title"</div><div class="line">        android:textSize="@dimen/ui_textsize_14sp"</div><div class="line">        tools:text="1234555"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/tv_rightItem1"</div><div class="line">        app:layout_constraintBottom_toTopOf="@id/tv_number2"/&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:id="@+id/tv_percent1"</div><div class="line">        android:layout_width="@dimen/ui_55dp"</div><div class="line">        android:layout_height="wrap_content"</div><div class="line">        tools:background="@color/blue_line_chart"</div><div class="line">        android:gravity="center_vertical"</div><div class="line">        android:layout_marginLeft="@dimen/ui_padding_10dp"</div><div class="line">        android:paddingLeft="@dimen/ui_5dp"</div><div class="line">        android:textColor="@color/white"</div><div class="line">        app:layout_constraintBottom_toTopOf="@+id/tv_number2"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/tv_number1"</div><div class="line">        app:layout_constraintTop_toTopOf="@+id/tv_number1"</div><div class="line">        tools:text="80%" /&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:id="@+id/tv_rightItem2"</div><div class="line">        android:layout_width="@dimen/ui_title_height"</div><div class="line">        android:layout_height="@dimen/ui_title_height"</div><div class="line">        android:gravity="center_vertical|right"</div><div class="line">        android:textColor="@color/gray_text"</div><div class="line">        android:textSize="@dimen/ui_textsize_12sp"</div><div class="line">        app:layout_constraintBottom_toTopOf="@id/guideline2"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/circlePoint2"</div><div class="line">        android:text="游戏:" /&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:id="@+id/tv_number2"</div><div class="line">        android:layout_width="@dimen/ui_title_width"</div><div class="line">        android:layout_height="@dimen/ui_title_height"</div><div class="line">        android:gravity="right|center_vertical"</div><div class="line">        android:textColor="@color/black_title"</div><div class="line">        android:textSize="@dimen/ui_textsize_14sp"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/tv_rightItem1"</div><div class="line">        app:layout_constraintBottom_toTopOf="@id/guideline2"</div><div class="line">        tools:text="55" /&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:id="@+id/tv_percent2"</div><div class="line">        android:layout_width="@dimen/ui_55dp"</div><div class="line">        android:layout_height="wrap_content"</div><div class="line">        tools:background="@color/blue_line_chart"</div><div class="line">        android:gravity="center_vertical"</div><div class="line">        android:layout_marginLeft="@dimen/ui_padding_10dp"</div><div class="line">        android:paddingLeft="@dimen/ui_5dp"</div><div class="line">        android:textColor="@color/white"</div><div class="line">        app:layout_constraintBottom_toBottomOf="@+id/tv_number2"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/tv_number2"</div><div class="line">        app:layout_constraintTop_toTopOf="@+id/tv_number2"</div><div class="line">        tools:text="80.66%" /&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:id="@+id/tv_rightItem3"</div><div class="line">        android:layout_width="@dimen/ui_title_height"</div><div class="line">        android:layout_height="@dimen/ui_title_height"</div><div class="line">        android:gravity="center_vertical|right"</div><div class="line">        android:textColor="@color/gray_text"</div><div class="line">        android:textSize="@dimen/ui_textsize_12sp"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/circlePoint2"</div><div class="line">        app:layout_constraintTop_toBottomOf="@id/guideline2"</div><div class="line">        android:text="支付:" /&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:id="@+id/tv_number3"</div><div class="line">        android:layout_width="@dimen/ui_title_width"</div><div class="line">        android:layout_height="@dimen/ui_title_height"</div><div class="line">        android:gravity="right|center_vertical"</div><div class="line">        android:textColor="@color/black_title"</div><div class="line">        android:textSize="@dimen/ui_textsize_14sp"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/tv_rightItem3"</div><div class="line">        app:layout_constraintTop_toBottomOf="@id/guideline2"</div><div class="line">        tools:text="55" /&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:id="@+id/tv_percent3"</div><div class="line">        android:layout_width="@dimen/ui_55dp"</div><div class="line">        android:layout_height="wrap_content"</div><div class="line">        tools:background="@color/blue_line_chart"</div><div class="line">        android:gravity="center_vertical"</div><div class="line">        android:layout_marginLeft="@dimen/ui_padding_10dp"</div><div class="line">        android:paddingLeft="@dimen/ui_5dp"</div><div class="line">        android:textColor="@color/white"</div><div class="line">        app:layout_constraintBottom_toBottomOf="@+id/tv_number3"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/tv_number3"</div><div class="line">        app:layout_constraintTop_toTopOf="@+id/tv_number3"</div><div class="line">        tools:text="80%" /&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:id="@+id/tv_rightItem4"</div><div class="line">        android:layout_width="@dimen/ui_title_height"</div><div class="line">        android:layout_height="@dimen/ui_title_height"</div><div class="line">        android:gravity="center_vertical|right"</div><div class="line">        android:textColor="@color/gray_text"</div><div class="line">        android:textSize="@dimen/ui_textsize_12sp"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/circlePoint2"</div><div class="line">        app:layout_constraintTop_toBottomOf="@id/tv_rightItem3"</div><div class="line">        android:text="服务:" /&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:id="@+id/tv_number4"</div><div class="line">        android:layout_width="@dimen/ui_title_width"</div><div class="line">        android:layout_height="@dimen/ui_title_height"</div><div class="line">        android:gravity="right|center_vertical"</div><div class="line">        android:textColor="@color/black_title"</div><div class="line">        android:textSize="@dimen/ui_textsize_14sp"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/tv_rightItem3"</div><div class="line">        app:layout_constraintTop_toBottomOf="@id/tv_number3"</div><div class="line">        tools:text="55" /&gt;</div><div class="line"></div><div class="line">    &lt;TextView</div><div class="line">        android:id="@+id/tv_percent4"</div><div class="line">        android:layout_width="@dimen/ui_55dp"</div><div class="line">        android:layout_height="wrap_content"</div><div class="line">        tools:background="@color/blue_line_chart"</div><div class="line">        android:gravity="center_vertical"</div><div class="line">        android:textColor="@color/white"</div><div class="line">        android:layout_marginLeft="@dimen/ui_padding_10dp"</div><div class="line">        android:paddingLeft="@dimen/ui_5dp"</div><div class="line">        app:layout_constraintBottom_toBottomOf="@+id/tv_number4"</div><div class="line">        app:layout_constraintLeft_toRightOf="@id/tv_number4"</div><div class="line">        app:layout_constraintTop_toTopOf="@+id/tv_number4"</div><div class="line">        tools:text="80%" /&gt;</div><div class="line"></div><div class="line">    &lt;ImageView</div><div class="line">        android:id="@+id/iv_next"</div><div class="line">        android:layout_width="wrap_content"</div><div class="line">        android:layout_height="wrap_content"</div><div class="line">        android:layout_alignParentRight="true"</div><div class="line">        android:layout_centerVertical="true"</div><div class="line">        android:contentDescription="@string/view_details"</div><div class="line">        android:src="@drawable/icon_drop_right"</div><div class="line">        app:layout_constraintRight_toLeftOf="@id/guideline1"</div><div class="line">        app:layout_constraintTop_toBottomOf="parent"</div><div class="line">        app:layout_constraintBottom_toTopOf="parent"</div><div class="line">        /&gt;</div><div class="line"></div><div class="line">    &lt;View</div><div class="line">        android:layout_width="match_parent"</div><div class="line">        android:layout_height="@dimen/ui_divider_height"</div><div class="line">        android:background="@color/divider"</div><div class="line">        app:layout_constraintBottom_toTopOf="parent"/&gt;</div><div class="line"></div><div class="line">&lt;/android.support.constraint.ConstraintLayout&gt;</div></pre></td></tr></table></figure>
+<p>可以看到使用ConstraintLayout只用一层布局就可以做到，完全不用嵌套，而且性能比普通的嵌套布局好很多，可以用Hierarchy View查看布局时间，图这里就不贴了。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>ConstraintLayout有两种布局方式，一种就是在视图编辑器里直接拖动，另外一种就是在代码里布局，我的建议是简单的布局可以在视图编辑器里直接拖，很方便，但是复杂布局还是建议大家在代码里布局，因为view太多了真的不好拖，还容易误操作，当然你有一个巨大无比的显示屏就当我没说。</p>
+<p>1.在视图编辑器里直接拖动</p>
+<p>这里引用一下郭霖郭神的blog，他的博客已经写的很清楚了。想了解的可以点击<a href="http://blog.csdn.net/guolin_blog/article/details/53122387" target="_blank" rel="external">郭霖的博客</a></p>
+<p>2.在代码里布局</p>
+<p>相对于直接在视图编辑器里布局，在代码里布局就不是那么直观明了了，但是用代码布局更加准确，不容易出错。</p>
+<h4 id="基本布局代码："><a href="#基本布局代码：" class="headerlink" title="基本布局代码："></a>基本布局代码：</h4><ul>
+<li>app:layout_constraintLeft_toRightOf=”parent”</li>
+</ul>
+<p>上面代码<code>layout_constraintLeft</code>表示要布局的view自身的四个位置中的左边，<code>toRightOf=&quot;parent&quot;</code>表示相对于目标view的位置右边，这行代码连起来就是要布局的view的左边在parent view的右边，也就是view在parent view的右边的意思</p>
+<ul>
+<li>app:layout_constraintBottom_toBottomOf=”parent”</li>
+</ul>
+<p>对于这种类似于bottom_toBottom的代码，是表示边与边对齐的意思，这行代码的意思是view的底边相对于parent view底边对齐</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app:layout_constraintBottom_toBottomOf=<span class="string">"parent"</span></div><div class="line">app:layout_constraintStart_toStartOf=<span class="string">"parent"</span></div><div class="line">app:layout_constraintTop_toTopOf=<span class="string">"parent"</span></div></pre></td></tr></table></figure>
+<p>上面代码是表示垂直居中的意思</p>
+<h4 id="引导线（可用来百分比布局）"><a href="#引导线（可用来百分比布局）" class="headerlink" title="引导线（可用来百分比布局）"></a>引导线（可用来百分比布局）</h4><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;!--水平平分线--&gt;</div><div class="line">&lt;android.support.constraint.Guideline</div><div class="line">    android:id="@+id/guideline"</div><div class="line">    android:layout_width="match_parent"</div><div class="line">    android:layout_height="wrap_content"</div><div class="line">    android:orientation="horizontal"</div><div class="line">    app:layout_constraintGuide_percent="0.5"&gt;</div><div class="line">&lt;/android.support.constraint.Guideline&gt;</div></pre></td></tr></table></figure>
+<p>GuideLine也叫做辅助线，分为垂直和水平方向，查看源码可以看到它的draw()方法是空实现，也就表示在它不会真正绘制，只是起辅助作用，通过辅助线可以简单实现百分比布局等功能。通过GuideLine和app:layout_constraintXX_toXXOf=”XX”配合使用，基本可以实现所有复杂布局。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>ConstraintLayout作为新的布局容器，优点是能良好的解决布局嵌套带来的性能问题，在追求性能的页面很有必要使用，缺点就是便利性不够，简而言之就是稍显麻烦，一般对性能要求不高的页面不是很必要。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ConstraintLayout/" rel="tag"># ConstraintLayout</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/15/升级Android Studio3.0/" rel="next" title="升级Android Studio 3.0">
+                <i class="fa fa-chevron-left"></i> 升级Android Studio 3.0
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avater.jpg"
+               alt="vi1zen" />
+          <p class="site-author-name" itemprop="name">vi1zen</p>
+          <p class="site-description motion-element" itemprop="description">天凉饮酒，风清读书</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/vi1zen" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加依赖"><span class="nav-number">2.</span> <span class="nav-text">添加依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例"><span class="nav-number">3.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">4.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本布局代码："><span class="nav-number">4.1.</span> <span class="nav-text">基本布局代码：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引导线（可用来百分比布局）"><span class="nav-number">4.2.</span> <span class="nav-text">引导线（可用来百分比布局）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">vi1zen</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+  <script type="text/javascript" color="0,0,255" opacity='0.5' zIndex="-2" count="100" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2128433"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+     
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("YyIwvKmHWAvaq8hkeGMhfo2O-gzGzoHsz", "lUImhFEh1QrajUg0XOcLbOlN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+  
+  
+</body>
+</html>
