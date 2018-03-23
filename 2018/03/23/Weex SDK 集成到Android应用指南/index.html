@@ -83,7 +83,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ArrayList,clone," />
+  <meta name="keywords" content="Weex," />
 
 
 
@@ -99,19 +99,33 @@
 
 
 
-<meta name="description" content="1. ArrayList的clone方法源码1234567891011121314151617/** * Returns a shallow copy of this &amp;lt;tt&amp;gt;ArrayList&amp;lt;/tt&amp;gt; instance.  (The * elements themselves are not copied.) * * @return a clone of this &amp;l">
+<meta name="description" content="引言最近项目变更的比较频繁，跨平台开发也提上了议程，我也在考虑是不是需要引入一些动态化比较成熟的方案，目前就RN,Weex这两家有比较成熟的方案，RN社区很成熟，但上手门槛太高，Weex恰好相反，由于团队都是用的Vue,最后选择了Weex，下面是一些入坑指南。
+开发环境搭建这个网上一搜一大堆，这里就不贴了，随便附上官网链接:
+
+http://weex.apache.org/cn/guide/
+
+需">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于ArrayList的clone方法的一些理解">
-<meta property="og:url" content="http://vi1zen.cn/2017/08/02/关于ArrayList的clone方法的一些理解/index.html">
+<meta property="og:title" content="Weex SDK 集成到Android应用指南">
+<meta property="og:url" content="http://vi1zen.cn/2018/03/23/Weex SDK 集成到Android应用指南/index.html">
 <meta property="og:site_name" content="vi1zen">
-<meta property="og:description" content="1. ArrayList的clone方法源码1234567891011121314151617/** * Returns a shallow copy of this &amp;lt;tt&amp;gt;ArrayList&amp;lt;/tt&amp;gt; instance.  (The * elements themselves are not copied.) * * @return a clone of this &amp;l">
-<meta property="og:image" content="http://ol9j5v5dg.bkt.clouddn.com/before_remove.png">
-<meta property="og:image" content="http://ol9j5v5dg.bkt.clouddn.com/after_remove.png">
-<meta property="og:updated_time" content="2017-08-02T06:21:11.699Z">
+<meta property="og:description" content="引言最近项目变更的比较频繁，跨平台开发也提上了议程，我也在考虑是不是需要引入一些动态化比较成熟的方案，目前就RN,Weex这两家有比较成熟的方案，RN社区很成熟，但上手门槛太高，Weex恰好相反，由于团队都是用的Vue,最后选择了Weex，下面是一些入坑指南。
+开发环境搭建这个网上一搜一大堆，这里就不贴了，随便附上官网链接:
+
+http://weex.apache.org/cn/guide/
+
+需">
+<meta property="og:image" content="http://ol9j5v5dg.bkt.clouddn.com/device-2018-03-23-092232.png">
+<meta property="og:updated_time" content="2018-03-23T01:38:03.165Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于ArrayList的clone方法的一些理解">
-<meta name="twitter:description" content="1. ArrayList的clone方法源码1234567891011121314151617/** * Returns a shallow copy of this &amp;lt;tt&amp;gt;ArrayList&amp;lt;/tt&amp;gt; instance.  (The * elements themselves are not copied.) * * @return a clone of this &amp;l">
-<meta name="twitter:image" content="http://ol9j5v5dg.bkt.clouddn.com/before_remove.png">
+<meta name="twitter:title" content="Weex SDK 集成到Android应用指南">
+<meta name="twitter:description" content="引言最近项目变更的比较频繁，跨平台开发也提上了议程，我也在考虑是不是需要引入一些动态化比较成熟的方案，目前就RN,Weex这两家有比较成熟的方案，RN社区很成熟，但上手门槛太高，Weex恰好相反，由于团队都是用的Vue,最后选择了Weex，下面是一些入坑指南。
+开发环境搭建这个网上一搜一大堆，这里就不贴了，随便附上官网链接:
+
+http://weex.apache.org/cn/guide/
+
+需">
+<meta name="twitter:image" content="http://ol9j5v5dg.bkt.clouddn.com/device-2018-03-23-092232.png">
 
 
 
@@ -139,13 +153,13 @@
 
 
 
-  <link rel="canonical" href="http://vi1zen.cn/2017/08/02/关于ArrayList的clone方法的一些理解/"/>
+  <link rel="canonical" href="http://vi1zen.cn/2018/03/23/Weex SDK 集成到Android应用指南/"/>
 
 
 
 
 
-  <title> 关于ArrayList的clone方法的一些理解 | vi1zen </title>
+  <title> Weex SDK 集成到Android应用指南 | vi1zen </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -292,7 +306,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://vi1zen.cn/2017/08/02/关于ArrayList的clone方法的一些理解/">
+  <link itemprop="mainEntityOfPage" href="http://vi1zen.cn/2018/03/23/Weex SDK 集成到Android应用指南/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="vi1zen">
@@ -316,7 +330,7 @@
             
             
               
-                关于ArrayList的clone方法的一些理解
+                Weex SDK 集成到Android应用指南
               
             
           </h1>
@@ -331,8 +345,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-02T10:55:37+08:00">
-                2017-08-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-23T10:10:10+08:00">
+                2018-03-23
               </time>
             
 
@@ -371,7 +385,7 @@
 
           
           
-             <span id="/2017/08/02/关于ArrayList的clone方法的一些理解/" class="leancloud_visitors" data-flag-title="关于ArrayList的clone方法的一些理解">
+             <span id="/2018/03/23/Weex SDK 集成到Android应用指南/" class="leancloud_visitors" data-flag-title="Weex SDK 集成到Android应用指南">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -400,31 +414,27 @@
       
 
       
-        <h3 id="1-ArrayList的clone方法源码"><a href="#1-ArrayList的clone方法源码" class="headerlink" title="1. ArrayList的clone方法源码"></a>1. ArrayList的clone方法源码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Returns a shallow copy of this &lt;tt&gt;ArrayList&lt;/tt&gt; instance.  (The</div><div class="line"> * elements themselves are not copied.)</div><div class="line"> *</div><div class="line"> * <span class="doctag">@return</span> a clone of this &lt;tt&gt;ArrayList&lt;/tt&gt; instance</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        ArrayList&lt;?&gt; v = (ArrayList&lt;?&gt;) <span class="keyword">super</span>.clone();</div><div class="line">        v.elementData = Arrays.copyOf(elementData, size);</div><div class="line">        v.modCount = <span class="number">0</span>;</div><div class="line">        <span class="keyword">return</span> v;</div><div class="line">    &#125; <span class="keyword">catch</span> (CloneNotSupportedException e) &#123;</div><div class="line">        <span class="comment">// this shouldn't happen, since we are Cloneable</span></div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InternalError(e);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>该方法返回一个Object对象，所以在使用此方法的时候要强制转换。<br>ArrayList的本质是维护了一个Object的数组，所以克隆也是通过数组的复制实现的，对象不会被克隆，属于浅克隆。</p>
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>最近项目变更的比较频繁，跨平台开发也提上了议程，我也在考虑是不是需要引入一些动态化比较成熟的方案，目前就RN,Weex这两家有比较成熟的方案，RN社区很成熟，但上手门槛太高，Weex恰好相反，由于团队都是用的Vue,最后选择了Weex，下面是一些入坑指南。</p>
+<h3 id="开发环境搭建"><a href="#开发环境搭建" class="headerlink" title="开发环境搭建"></a>开发环境搭建</h3><p>这个网上一搜一大堆，这里就不贴了，随便附上官网链接:</p>
+<blockquote>
+<p><a href="http://weex.apache.org/cn/guide/" target="_blank" rel="external">http://weex.apache.org/cn/guide/</a></p>
+</blockquote>
+<p>需要注意的是在使用npm安卓Weex时如果使用最新版本的npm有可能会包下面的错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm Error: write after end</div></pre></td></tr></table></figure></p>
+<p>这里把npm降级成5.6.0版本就可以了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install npm@<span class="number">5.6</span>.0</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<h3 id="2-ArrayList的clone浅复制的巧妙使用"><a href="#2-ArrayList的clone浅复制的巧妙使用" class="headerlink" title="2. ArrayList的clone浅复制的巧妙使用"></a>2. ArrayList的clone浅复制的巧妙使用</h3><p>当你需要使用remove方法移除掉集合中的对象，而非要修改集合中的对象的时候，可以选择使用。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加两个元素</span></div><div class="line">Student stJack=<span class="keyword">new</span> Student(<span class="string">"Jack"</span>, <span class="number">13</span>);</div><div class="line">Student stTom=<span class="keyword">new</span> Student(<span class="string">"Tom"</span>, <span class="number">15</span>);</div><div class="line">list.add(stJack);</div><div class="line">list.add(stTom);</div><div class="line"></div><div class="line"><span class="comment">//克隆</span></div><div class="line">ArrayList&lt;Student&gt; listCopy=(ArrayList&lt;Student&gt;) list.clone();</div><div class="line"></div><div class="line"><span class="comment">//移除且不修改</span></div><div class="line">listCopy.remove(<span class="number">1</span>);</div><div class="line">System.out.println(list);</div><div class="line">System.out.println(listCopy);</div></pre></td></tr></table></figure>
-<p>输出结果<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[student[name=Jack,age=<span class="number">13</span>],[name=Tom,age=<span class="number">15</span>]]</div><div class="line">[student[name=Jack,age=<span class="number">13</span>]]</div></pre></td></tr></table></figure></p>
-<p>内存堆栈示意图</p>
-<ul>
-<li>remove之前</li>
-</ul>
-<p><img src="http://ol9j5v5dg.bkt.clouddn.com/before_remove.png" alt="remove之前"></p>
-<ul>
-<li>remove之后</li>
-</ul>
-<p><img src="http://ol9j5v5dg.bkt.clouddn.com/after_remove.png" alt="remove之后"></p>
+<h3 id="集成到Android应用"><a href="#集成到Android应用" class="headerlink" title="集成到Android应用"></a>集成到Android应用</h3><h4 id="添加SDK"><a href="#添加SDK" class="headerlink" title="添加SDK"></a>添加SDK</h4><p>这里同样参考官网教程</p>
 <blockquote>
-<p>可以看出：移除且不修改集合中的元素，只是在List内部的数组中移除了指向元素的地址，可以放心的使用clone。</p>
+<p><a href="http://weex.apache.org/cn/guide/integrate-to-your-app.html" target="_blank" rel="external">http://weex.apache.org/cn/guide/integrate-to-your-app.html</a></p>
 </blockquote>
-<h3 id="3-实现List的深克隆"><a href="#3-实现List的深克隆" class="headerlink" title="3. 实现List的深克隆"></a>3. 实现List的深克隆</h3><p>如果你想要修改克隆后的集合，那么克隆前的也会被修改。那么就需要使用深克隆。<br>在浅度克隆的基础上，对于要克隆的对象中的非基本数据类型的属性对应的类，也实现克隆，这样对于非基本数据类型的属性，复制的不是一份引用，即新产生的对象和原始对象中的非基本数据类型的属性指向的不是同一个对象</p>
-<p><strong>深克隆步骤：</strong></p>
-<blockquote>
-<p>要克隆的类和类中所有非基本数据类型的属性对应的类<br>1、都实现java.lang.Cloneable接口<br>2、都重写java.lang.Object.clone()方法</p>
-</blockquote>
-<p>代码实例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testClone</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">            ArrayList&lt;Student&gt; list=<span class="keyword">new</span> ArrayList&lt;Student&gt;();</div><div class="line">            <span class="comment">//添加两个元素</span></div><div class="line">            Student stJack=<span class="keyword">new</span> Student(<span class="string">"Jack"</span>, <span class="number">13</span>);</div><div class="line">            Student stTom=<span class="keyword">new</span> Student(<span class="string">"Tom"</span>, <span class="number">15</span>);</div><div class="line">            list.add(stJack);</div><div class="line">            list.add(stTom);</div><div class="line">            <span class="comment">//深克隆</span></div><div class="line">            ArrayList&lt;Student&gt; listCopy=<span class="keyword">new</span> ArrayList&lt;Student&gt;();</div><div class="line">            <span class="keyword">for</span> (Student student : list) &#123;</div><div class="line">                listCopy.add(student.clone());</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//移除且不修改</span></div><div class="line">            listCopy.get(<span class="number">0</span>).setAge(<span class="number">20</span>);</div><div class="line">            System.out.println(list);</div><div class="line">            System.out.println(listCopy);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> age;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>();</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">this</span>.age = age;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"Student [name="</span> + name + <span class="string">", age="</span> + age + <span class="string">"]"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> Student <span class="title">clone</span><span class="params">()</span></span>&#123;</div><div class="line">        Student stuent = <span class="keyword">new</span> Student(<span class="keyword">this</span>.name,<span class="keyword">this</span>.age); </div><div class="line">        <span class="keyword">return</span> stuent; </div><div class="line">    &#125;</div><div class="line">       </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>主要注意这个方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mWXSDKInstance.render(<span class="string">"WXDemo"</span>, WXFileUtils.loadFileContent(<span class="string">"js/weex_demo.js"</span>,<span class="keyword">this</span>)</div><div class="line">                ,<span class="keyword">null</span>,<span class="keyword">null</span>,-<span class="number">1</span>,-<span class="number">1</span>, WXRenderStrategy.APPEND_ASYNC);</div></pre></td></tr></table></figure>
+<p>其中的<code>js/weex_demo.js</code>表示的是在assets目录下的js文件路径,不能直接引用.we或者.vue文件，因为Android不能识别这两种文件类型，需要通过Weex编译成js文件才能正确加载。</p>
+<h3 id="编写前端文件"><a href="#编写前端文件" class="headerlink" title="编写前端文件"></a>编写前端文件</h3><p>这一步和写普通的前端没什么区别，不熟悉vue语法的建议先了解下vue.js<a href="https://cn.vuejs.org/" target="_blank" rel="external">官网</a><br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">text</span> <span class="attr">class</span>=<span class="string">"text1"</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">text</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">slider</span> <span class="attr">class</span>=<span class="string">"slide"</span> <span class="attr">interval</span>=<span class="string">"&#123;&#123;intervalTime&#125;&#125;"</span> <span class="attr">auto-play</span>=<span class="string">"true"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"slide_pages"</span> <span class="attr">repeat</span>=<span class="string">"&#123;&#123;itemDatas&#125;&#125;"</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">image</span> <span class="attr">class</span>=<span class="string">"image"</span> <span class="attr">src</span>=<span class="string">"&#123;&#123;picUrl&#125;&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">image</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">text</span> <span class="attr">class</span>=<span class="string">"title"</span>&gt;</span>&#123;&#123;title&#125;&#125;<span class="tag">&lt;/<span class="name">text</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">slider</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line">    module.exports = &#123;</div><div class="line">        data: &#123;</div><div class="line">            intervalTime: "2000",</div><div class="line">            itemDatas: [</div><div class="line">                &#123;</div><div class="line">                    title: '七牛云',</div><div class="line">                    picUrl: 'https://gss0.bdstatic.com/94o3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=bf02b32ba2ec8a1300175fb2966afaea/b58f8c5494eef01fd2078f01ebfe9925bd317de7.jpg'</div><div class="line">                &#125;,</div><div class="line">                &#123;</div><div class="line">                    title: '腾讯云',</div><div class="line">                    picUrl: 'https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike116%2C5%2C5%2C116%2C38/sign=3a6b0e32a018972bb737089887a410ec/78310a55b319ebc45d3844bf8926cffc1e171657.jpg'</div><div class="line">                &#125;,</div><div class="line">                &#123;</div><div class="line">                    title: '阿里云',</div><div class="line">                    picUrl: 'https://gss0.bdstatic.com/-4o3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike72%2C5%2C5%2C72%2C24/sign=097ea254a751f3ded7bfb136f5879b7a/aec379310a55b3197face8eb4ba98226cefc17d2.jpg'</div><div class="line">                &#125;</div><div class="line">            ]</div><div class="line">        &#125;,</div><div class="line">        methods: &#123;&#125;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">    .text1&#123;</div><div class="line">        font-size: 50px;</div><div class="line">        text-align: center;</div><div class="line">        color: deepskyblue;</div><div class="line">        background: black;</div><div class="line">    &#125;</div><div class="line">    .title &#123;</div><div class="line">        font-size: 50px;</div><div class="line">        text-align: center;</div><div class="line">        background: white;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    .slide_pages &#123;</div><div class="line">        width: 750px;</div><div class="line">        height: 400px;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    .slide &#123;</div><div class="line">        width: 750px;</div><div class="line">        height: 400px;</div><div class="line">        flex-direction: row;</div><div class="line">    &#125;</div><div class="line">    .image&#123;</div><div class="line">        width: 750px;</div><div class="line">        height: 300px;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>weex中.we或者.vue文件由<code>&lt;template&gt;，&lt;script&gt;，&lt;style&gt;</code>三部分构成，<code>&lt;template&gt;</code>为必选，<code>&lt;script&gt;，&lt;style&gt;</code>为非必选，这里类比html文件就很清楚了，需要注意的是weex默认宽度是750px</p>
+<p>编写好.we或者.vue文件后，通过weex本地编译命令转成js文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">weex compile vue js</div></pre></td></tr></table></figure>
+<p>最后运行Android工程就能看到效果了<br><img src="http://ol9j5v5dg.bkt.clouddn.com/device-2018-03-23-092232.png" alt="此处输入图片的描述"></p>
 
       
     </div>
@@ -448,9 +458,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ArrayList/" rel="tag"># ArrayList</a>
-          
-            <a href="/tags/clone/" rel="tag"># clone</a>
+            <a href="/tags/Weex/" rel="tag"># Weex</a>
           
         </div>
       
@@ -463,8 +471,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/28/Android_RSA加解密/" rel="next" title="Android RSA加解密">
-                <i class="fa fa-chevron-left"></i> Android RSA加解密
+              <a href="/2018/03/14/百度地图覆盖物Marker的一些坑/" rel="next" title="百度地图覆盖物Marker的一些坑">
+                <i class="fa fa-chevron-left"></i> 百度地图覆盖物Marker的一些坑
               </a>
             
           </div>
@@ -472,10 +480,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/10/Android启动模式与StartActivityForResult的关系/" rel="prev" title="Android启动模式与StartActivityForResult的关系">
-                Android启动模式与StartActivityForResult的关系 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -634,7 +638,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-ArrayList的clone方法源码"><span class="nav-number">1.</span> <span class="nav-text">1. ArrayList的clone方法源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-ArrayList的clone浅复制的巧妙使用"><span class="nav-number">2.</span> <span class="nav-text">2. ArrayList的clone浅复制的巧妙使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-实现List的深克隆"><span class="nav-number">3.</span> <span class="nav-text">3. 实现List的深克隆</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发环境搭建"><span class="nav-number">2.</span> <span class="nav-text">开发环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集成到Android应用"><span class="nav-number">3.</span> <span class="nav-text">集成到Android应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加SDK"><span class="nav-number">3.1.</span> <span class="nav-text">添加SDK</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写前端文件"><span class="nav-number">4.</span> <span class="nav-text">编写前端文件</span></a></li></ol></div>
             
 
           </div>

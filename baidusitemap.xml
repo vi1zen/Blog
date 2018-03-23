@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://vi1zen.cn/2018/03/23/Weex%20SDK%20%E9%9B%86%E6%88%90%E5%88%B0Android%E5%BA%94%E7%94%A8%E6%8C%87%E5%8D%97/</loc>
+    <lastmod>2018-03-23T01:38:03.165Z</lastmod>
+    <data>
+        <display>
+        <title>Weex SDK 集成到Android应用指南</title>
+        <pubTime>2018-03-23T02:10:10.000Z</pubTime>
+        
+        <tag>Weex</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://vi1zen.cn/2018/03/14/%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E8%A6%86%E7%9B%96%E7%89%A9Marker%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</loc>
     <lastmod>2018-03-14T03:03:34.338Z</lastmod>
     <data>
@@ -25,7 +45,7 @@
     
   <url>
     <loc>http://vi1zen.cn/2018/02/06/%E4%BD%BF%E7%94%A8ConstraintLayout%E8%A7%A3%E5%86%B3%E5%B8%83%E5%B1%80%E5%B5%8C%E5%A5%97%EF%BC%8C%E6%8F%90%E9%AB%98%E6%80%A7%E8%83%BD/</loc>
-    <lastmod>2018-02-06T03:22:33.131Z</lastmod>
+    <lastmod>2018-02-06T03:22:33.132Z</lastmod>
     <data>
         <display>
         <title>使用ConstraintLayout解决布局嵌套，提高性能</title>
@@ -105,7 +125,7 @@
     
   <url>
     <loc>http://vi1zen.cn/2017/08/10/Android%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B8%8EStartActivityForResult%E7%9A%84%E5%85%B3%E7%B3%BB/</loc>
-    <lastmod>2017-08-10T08:13:44.834Z</lastmod>
+    <lastmod>2017-08-10T08:13:44.835Z</lastmod>
     <data>
         <display>
         <title>Android启动模式与StartActivityForResult的关系</title>
@@ -125,7 +145,7 @@
     
   <url>
     <loc>http://vi1zen.cn/2017/08/02/%E5%85%B3%E4%BA%8EArrayList%E7%9A%84clone%E6%96%B9%E6%B3%95%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/</loc>
-    <lastmod>2017-08-02T06:21:11.698Z</lastmod>
+    <lastmod>2017-08-02T06:21:11.699Z</lastmod>
     <data>
         <display>
         <title>关于ArrayList的clone方法的一些理解</title>
@@ -167,7 +187,7 @@
     
   <url>
     <loc>http://vi1zen.cn/2017/07/14/JAVA%E4%B8%AD%E5%BE%AA%E7%8E%AF%E5%88%A0%E9%99%A4list%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</loc>
-    <lastmod>2017-07-14T01:40:42.310Z</lastmod>
+    <lastmod>2017-07-14T01:40:42.311Z</lastmod>
     <data>
         <display>
         <title>JAVA中循环删除list中元素的方法总结</title>
@@ -187,7 +207,7 @@
     
   <url>
     <loc>http://vi1zen.cn/2017/06/01/Android%E7%84%A6%E7%82%B9%E8%8E%B7%E5%8F%96/</loc>
-    <lastmod>2017-06-01T02:21:31.275Z</lastmod>
+    <lastmod>2017-06-01T02:21:31.276Z</lastmod>
     <data>
         <display>
         <title>Android焦点获取</title>
@@ -247,7 +267,7 @@
     
   <url>
     <loc>http://vi1zen.cn/2017/04/10/%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0RecyclerView%E5%A4%9A%E7%B1%BB%E5%9E%8B%E5%88%97%E8%A1%A8%E7%9A%84Adapter/</loc>
-    <lastmod>2017-04-10T04:34:31.924Z</lastmod>
+    <lastmod>2017-04-10T04:34:31.925Z</lastmod>
     <data>
         <display>
         <title>优雅的实现RecyclerView多类型列表的Adapter</title>
@@ -268,7 +288,7 @@
     
   <url>
     <loc>http://vi1zen.cn/2017/03/24/Hexo+NexT%E4%B8%BB%E9%A2%98%E5%8F%8B%E8%A8%80%E7%A4%BE%E4%BA%A4%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2017-03-24T06:35:49.420Z</lastmod>
+    <lastmod>2017-03-24T06:35:49.421Z</lastmod>
     <data>
         <display>
         <title>Hexo+NexT主题友言社交评论系统配置</title>
@@ -288,7 +308,7 @@
     
   <url>
     <loc>http://vi1zen.cn/2017/03/17/Android%20%E5%B5%8C%E5%A5%97%E6%BB%91%E5%8A%A8%E6%9C%BA%E5%88%B6(NestedScrolling)/</loc>
-    <lastmod>2017-03-17T07:43:41.186Z</lastmod>
+    <lastmod>2017-03-17T07:43:41.187Z</lastmod>
     <data>
         <display>
         <title>Android 嵌套滑动机制（NestedScrolling）</title>
@@ -328,7 +348,7 @@
     
   <url>
     <loc>http://vi1zen.cn/2017/02/12/%E5%88%A9%E7%94%A8canvas-next.js%E8%AE%BE%E7%BD%AENexT%E4%B8%BB%E9%A2%98%E8%83%8C%E6%99%AF/</loc>
-    <lastmod>2017-03-10T06:46:20.279Z</lastmod>
+    <lastmod>2017-03-10T06:46:20.280Z</lastmod>
     <data>
         <display>
         <title>利用canvas-next.js设置NexT主题背景</title>
@@ -350,7 +370,7 @@
     
   <url>
     <loc>http://vi1zen.cn/2017/03/06/Android%E9%80%80%E5%87%BA%E5%BA%94%E7%94%A8%E6%9C%80%E4%BC%98%E9%9B%85%E7%9A%84%E6%96%B9%E5%BC%8F/</loc>
-    <lastmod>2017-03-10T06:44:15.465Z</lastmod>
+    <lastmod>2017-03-10T06:44:15.466Z</lastmod>
     <data>
         <display>
         <title>Android退出应用最优雅的方式</title>
@@ -376,7 +396,7 @@
     <data>
         <display>
         <title>利用Hexo + NexT搭建个人博客</title>
-        <pubTime>2017-02-09T13:12:08.479Z</pubTime>
+        <pubTime>2017-02-09T13:12:08.480Z</pubTime>
         
         <tag>NexT</tag>
          
@@ -392,7 +412,7 @@
     
   <url>
     <loc>http://vi1zen.cn/2017/02/08/hello-world/</loc>
-    <lastmod>2017-02-09T13:18:50.873Z</lastmod>
+    <lastmod>2017-02-09T13:18:50.874Z</lastmod>
     <data>
         <display>
         <title>Hello World</title>
