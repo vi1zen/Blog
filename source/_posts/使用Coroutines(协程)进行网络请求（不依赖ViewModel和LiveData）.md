@@ -1,5 +1,3 @@
-# 使用Coroutines(协程)进行网络请求（不依赖ViewModel和LiveData）
-
 ---
 title: 使用Coroutines(协程)进行网络请求（不依赖ViewModel和LiveData）
 date: 2020-05-20 11:16
