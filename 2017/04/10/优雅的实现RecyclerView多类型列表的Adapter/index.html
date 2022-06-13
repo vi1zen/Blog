@@ -1,38 +1,423 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
 
 
-{% block title %} {{ page.title }} | {{ config.title }} {% endblock %}
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block content %}
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+<script class="next-config" data-name="main" type="application/json">{"hostname":"vi1zen.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言在开发中经常会遇到，一个列表(RecyclerView)中有多种布局类型的情况。前段时间，看到了这篇文章  关于 Android Adapter，你的实现方式可能一直都有问题  文中主要从设计的角度阐释如何更合理的实现多种布局类型的Adapter，本文主要从实践的角度出发，站在巨人的肩膀上，结合我个人的理解进行阐述，如果有纰漏，欢迎留言指出。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="优雅的实现RecyclerView多类型列表的Adapter">
+<meta property="og:url" content="http://vi1zen.cn/2017/04/10/%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0RecyclerView%E5%A4%9A%E7%B1%BB%E5%9E%8B%E5%88%97%E8%A1%A8%E7%9A%84Adapter/index.html">
+<meta property="og:site_name" content="vi1zen">
+<meta property="og:description" content="引言在开发中经常会遇到，一个列表(RecyclerView)中有多种布局类型的情况。前段时间，看到了这篇文章  关于 Android Adapter，你的实现方式可能一直都有问题  文中主要从设计的角度阐释如何更合理的实现多种布局类型的Adapter，本文主要从实践的角度出发，站在巨人的肩膀上，结合我个人的理解进行阐述，如果有纰漏，欢迎留言指出。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-04-10T04:28:37.000Z">
+<meta property="article:modified_time" content="2017-04-10T04:34:31.000Z">
+<meta property="article:author" content="vi1zen">
+<meta property="article:tag" content="RecyclerView">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://vi1zen.cn/2017/04/10/%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0RecyclerView%E5%A4%9A%E7%B1%BB%E5%9E%8B%E5%88%97%E8%A1%A8%E7%9A%84Adapter/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://vi1zen.cn/2017/04/10/%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0RecyclerView%E5%A4%9A%E7%B1%BB%E5%9E%8B%E5%88%97%E8%A1%A8%E7%9A%84Adapter/","path":"2017/04/10/优雅的实现RecyclerView多类型列表的Adapter/","title":"优雅的实现RecyclerView多类型列表的Adapter"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>优雅的实现RecyclerView多类型列表的Adapter | vi1zen</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">vi1zen</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
 
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E5%A4%9A%E7%A7%8D%E5%B8%83%E5%B1%80%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">有多种布局类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">优雅的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">小结：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#onCreateViewHolder"><span class="nav-number">4.1.</span> <span class="nav-text">onCreateViewHolder</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93%EF%BC%9A-1"><span class="nav-number">5.</span> <span class="nav-text">小结：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#onBindViewHolder"><span class="nav-number">5.1.</span> <span class="nav-text">onBindViewHolder</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="vi1zen"
+      src="/source/uploads/avater.jpg">
+  <p class="site-author-name" itemprop="name">vi1zen</p>
+  <div class="site-description" itemprop="description">天凉饮酒，风清读书</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/vi1zen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;vi1zen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://vi1zen.cn/2017/04/10/%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0RecyclerView%E5%A4%9A%E7%B1%BB%E5%9E%8B%E5%88%97%E8%A1%A8%E7%9A%84Adapter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/source/uploads/avater.jpg">
+      <meta itemprop="name" content="vi1zen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="vi1zen">
+      <meta itemprop="description" content="天凉饮酒，风清读书">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="优雅的实现RecyclerView多类型列表的Adapter | vi1zen">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          优雅的实现RecyclerView多类型列表的Adapter
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2017-04-10 12:28:37 / 修改时间：12:34:31" itemprop="dateCreated datePublished" datetime="2017-04-10T12:28:37+08:00">2017-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>在开发中经常会遇到，一个列表(RecyclerView)中有多种布局类型的情况。前段时间，看到了这篇文章</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/c6a44e18badb">关于 Android Adapter，你的实现方式可能一直都有问题</a></p>
+</blockquote>
+<p>文中主要从设计的角度阐释如何更合理的实现多种布局类型的Adapter，本文主要从实践的角度出发，站在巨人的肩膀上，结合我个人的理解进行阐述，如果有纰漏，欢迎留言指出。</p>
+<span id="more"></span>
+
+<h3 id="有多种布局类型"><a href="#有多种布局类型" class="headerlink" title="有多种布局类型"></a>有多种布局类型</h3><p>有时候，由于应用场景的需要，列表(RecyclerView)中需要存在一种以上的布局类型。为了阐述的方便，我们先假设一种应用场景</p>
+<p><code>列表中含有若干个常规的布局，在列表的中的第一个位置与第二个位置中分别为两个不同的布局，其余为常规的布局</code></p>
+<p>针对这样的需求，笔者一直以来的实现方式如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">ITEM_TYPE_ONE</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">ITEM_TYPE_TWO</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getItemViewType</span><span class="params">(<span class="type">int</span> position)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">0</span> == position)&#123;</span><br><span class="line">       <span class="keyword">return</span>  ITEM_TYPE_ONE;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="number">1</span> == position)&#123;</span><br><span class="line">        <span class="keyword">return</span> ITEM_TYPE_TWO;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">super</span>.getItemViewType(position);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> ViewHolder <span class="title function_">onCreateViewHolder</span><span class="params">(ViewGroup parent, <span class="type">int</span> viewType)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(ITEM_TYPE_ONE == viewType)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">OneViewHolder</span>();</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(ITEM_TYPE_TWO == viewType)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">TwoViewHolder</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">NormalViewHolder</span>()；            </span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="comment">//伪代码</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onBindViewHolder</span><span class="params">(ViewHolder holder, <span class="type">int</span> position)</span> &#123;</span><br><span class="line">   <span class="keyword">if</span>(holder <span class="keyword">instanceof</span> OneViewHolder )&#123;</span><br><span class="line">         ...</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(holder <span class="keyword">instanceof</span> TwoViewHolder)&#123;</span><br><span class="line">         ...</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在Adapter的getItemViewType方法中返回特定位置的特定标识（根据前文需求，就是position0与position1）</li>
+<li>在onCreateViewHolder中根据viewType参数，也就是getItemViewType的返回值来判断需要创建的ViewHolder类型</li>
+<li>在onBindViewHolder方法中对ViewHolder的具体类型进行判断，分别为不同类型的ViewHolder进行绑定数据与逻辑处理</li>
+</ul>
+<p>通过以上就能实现多类型列表的Adapter，但这样的代码写多了总会觉得别扭。</p>
+<p>结合文章与我个人的理解，这种实现方式所存在弊端可以总结为以下几点：</p>
+<ul>
+<li><em>类型检查与类型转型</em>，由于在onCreateViewHolder根据不同类型创建了不同的ViewHolder，所以在onBindViewHolder需要针对不同类型的ViewHolder进行数据绑定与逻辑处理，这导致需要通过instanceof对ViewHolder进行类型检查与类型转型。<br><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/c6a44e18badb">[译]关于 Android Adapter，你的实现方式可能一直都有问题中是这样说的</a></li>
+</ul>
+<blockquote>
+<p>许多年前，我在我的显示器上贴了许多的名言。其中的一个来自 Scott Meyers 写的《Effective C++》 这本书（最好的IT书籍之一），它是这么说的：<br>不管什么时候，只要你发现自己写的代码类似于 “ if the object is of type T1, then do something, but if it’s of type T2, then do something else ”，就给自己一耳光。</p>
+</blockquote>
+<ul>
+<li>不利于扩展，目前的需求是列表中存在三种布局类类型，那么如果需求变动，极端一点的情况就是数据源是从服务器获取的，数据中的model决定列表中的布局类型。这种情况下，每当model改变或model类型增加，我们都要去改变adapter中很多的代码，同时Adapter还必须知道特定的model在列表中的位置（position）除非跟服务端约定好，model（位置）不变，很显然，这是不现实的。<br>[译]关于 Android Adapter，你的实现方式可能一直都有问题中是这样说的</li>
+</ul>
+<blockquote>
+<p>另外，我们实行那些 adapter 的方法违背了 SOLID 原则中的“开闭准则” 。它是这样说的：“对扩展开放，对修改封闭。” 当我们添加另一个类型或者 model 到我们的类中时，比如叫 Rabbit 和 RabbitViewHolder，我们不得不在 Adapter 里改变许多的方法。 这是对开闭原则明显的违背。添加新对象不应该修改已存在的方法。</p>
+</blockquote>
+<ul>
+<li>不利于维护，这点应该是上一点的延伸，随着列表中布局类型的增加与变更，getItemViewType、onCreateViewHolder、onBindViewHolder中的代码都需要变更或增加，Adapter 中的代码会变得臃肿与混乱，增加了代码的维护成本。</li>
+</ul>
+<p>首先让我摸摸自己的脸，然后结合<a target="_blank" rel="noopener" href="http://www.jianshu.com/p/c6a44e18badb">[译]关于 Android Adapter，你的实现方式可能一直都有问题</a>，看看如何优雅的实现多类型列表的Adapter</p>
+<h3 id="优雅的实现"><a href="#优雅的实现" class="headerlink" title="优雅的实现"></a>优雅的实现</h3><p>结合上文，我们的核心目的就是三个</p>
+<ul>
+<li>避免类的类型检查与类型转型</li>
+<li>增强Adapter的扩展性</li>
+<li>增强Adapter的可维护性</li>
+</ul>
+<p>前文提到了，当列表中类型增加或减少时Adapter中主要改动的就是getItemViewType、onCreateViewHolder、onBindViewHolder这三个方法，因此，我们就从这三个方法中开始着手。</p>
+<p>Talk is cheap. Show me the code，围绕以上几点，开始码代码</p>
+<p>getItemViewType</p>
+<p>原本的代码是这样</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getItemViewType</span><span class="params">(<span class="type">int</span> position)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">0</span> == position)&#123;</span><br><span class="line">       <span class="keyword">return</span>  ITEM_TYPE_ONE;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="number">1</span> == position)&#123;</span><br><span class="line">        <span class="keyword">return</span> ITEM_TYPE_TWO;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">super</span>.getItemViewType(position);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这段代码中，我们必须知道特定的布局类型在列表中的位置，而布局类型在列表中的位置是由数据源决定的，为了解决这个问题并且减少if之类的逻辑判断简化代码，我们可以简单粗暴的在Model中增加type标识,优化之后getItemViewType的实现大致如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"> <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getItemViewType</span><span class="params">(<span class="type">int</span> position)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> modelList.get(position).getType();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>这样的方式有很大的局限性（谁用谁知道），这里就不展开了，直接看正确的姿势，先看代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Visitable</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">type</span><span class="params">(TypeFactory typeFactory)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">One</span> <span class="keyword">implements</span> <span class="title class_">Visitable</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    ...</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">type</span><span class="params">(TypeFactory typeFactory)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> typeFactory.type(<span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Two</span> <span class="keyword">implements</span> <span class="title class_">Visitable</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    ...</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">type</span><span class="params">(TypeFactory typeFactory)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> typeFactory.type(<span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Normal</span> <span class="keyword">implements</span> <span class="title class_">Visitable</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    ...</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">type</span><span class="params">(TypeFactory typeFactory)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> typeFactory.type(<span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">TypeFactory</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">type</span><span class="params">(One one)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="title function_">type</span><span class="params">(Two two)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TypeFactoryForList</span> <span class="keyword">implements</span> <span class="title class_">TypeFactory</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">TYPE_RESOURCE_ONE</span> <span class="operator">=</span> R.layout.layout_item_one;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">TYPE_RESOURCE_TWO</span> <span class="operator">=</span> R.layout.layout_item_two;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">TYPE_RESOURCE_NORMAL</span> <span class="operator">=</span> R.layout.layout_item_normal;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">type</span><span class="params">(One one)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> TYPE_RESOURCE_ONE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">type</span><span class="params">(Two one)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> TYPE_RESOURCE_TWO;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">type</span><span class="params">(Normal normal)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> TYPE_RESOURCE_NORMAL;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>针对getItemViewType可以进行如下实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> List&lt;Visitable&gt; modelList;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getItemViewType</span><span class="params">(<span class="type">int</span> position)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> modelList.get(position).type(typeFactory);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h3><ul>
+<li><p>通过接口抽象，将所有与列表相关的Model抽象为Visitable，当我们在初始化数据源时就能以List<Visitable>的形式将不同类型的Model集合在列表中；</p>
+</li>
+<li><p>通过访问者模式，将列表类型判断的相关代码抽取到TypeFactoryForList 中，同时所有列表类型对应的布局资源都在这个类中进行管理与维护，以这样的方式巧妙的增强了扩展性与可维护性；</p>
+</li>
+<li><p>getItemViewType中不再需要进行if判断，通过数据源控制列表的布局类型，同时返回的不再是简单的布局类型标识，而是布局的资源ID（通过modelList.get(position).type()获取），进一步简化代码（在onCreateViewHolder中会体现出来）；</p>
+</li>
+</ul>
+<h4 id="onCreateViewHolder"><a href="#onCreateViewHolder" class="headerlink" title="onCreateViewHolder"></a>onCreateViewHolder</h4><p>结合上文可以了解到，getItemViewType返回的是布局资源ID，也就是onCreateViewHolder(ViewGroup parent, int viewType)参数中的viewType，我们可以直接用viewType创建itemView，但是，问题来了，itemView创建之后，还是需要进行类型判断，创建不同的ViewHolder，针对这个问题可以分以下几个步骤解决<br>首先为了增强ViewHolder的灵活性，可以继承RecyclerView.ViewHolder派生出BaseViewHolder抽象类如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">BaseViewHolder</span>&lt;T&gt; <span class="keyword">extends</span> <span class="title class_">RecyclerView</span>.ViewHolder &#123;</span><br><span class="line">    <span class="keyword">private</span> SparseArray&lt;View&gt; views;</span><br><span class="line">    <span class="keyword">private</span> View mItemView;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BaseViewHolder</span><span class="params">(View itemView)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(itemView);</span><br><span class="line">        views = <span class="keyword">new</span> <span class="title class_">SparseArray</span>&lt;&gt;();</span><br><span class="line">        <span class="built_in">this</span>.mItemView = itemView;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> View <span class="title function_">getView</span><span class="params">(<span class="type">int</span> resID)</span> &#123;</span><br><span class="line">        <span class="type">View</span> <span class="variable">view</span> <span class="operator">=</span> views.get(resID);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (view == <span class="literal">null</span>) &#123;</span><br><span class="line">            view = mItemView.findViewById(resID);</span><br><span class="line">            views.put(resID,view);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> view;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">setUpView</span><span class="params">(T model, <span class="type">int</span> position, MultiTypeAdapter adapter)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不同的ViewHolder继承BaseViewHolder并实现setUpView方法即可。</p>
+<p>然后对TypeFactory 与TypeFactoryForList 增加如下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">TypeFactory</span> &#123;</span><br><span class="line">  ...</span><br><span class="line">  BaseViewHolder <span class="title function_">createViewHolder</span><span class="params">(<span class="type">int</span> type, View itemView)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TypeFactoryForList</span> <span class="keyword">implements</span> <span class="title class_">TypeFactory</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">TYPE_RESOURCE_ONE</span> <span class="operator">=</span> R.layout.layout_item_one;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">TYPE_RESOURCE_TWO</span> <span class="operator">=</span> R.layout.layout_item_two;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">TYPE_RESOURCE_NORMAL</span> <span class="operator">=</span> R.layout.layout_item_normal;</span><br><span class="line">  ...</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> BaseViewHolder <span class="title function_">createViewHolder</span><span class="params">(<span class="type">int</span> type, View itemView)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(TYPE_RESOURCE_ONE == type)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">OneViewHolder</span>(itemView);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (TYPE_RESOURCE_TWO == type)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">TwoViewHolder</span>(itemView);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (TYPE_RESOURCE_NORMAL == type)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">NormalViewHolder</span>(itemView);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后对onCreateViewHolder方法进行如下实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> BaseViewHolder <span class="title function_">onCreateViewHolder</span><span class="params">(ViewGroup parent, <span class="type">int</span> viewType)</span> &#123;</span><br><span class="line">    <span class="type">Context</span> <span class="variable">context</span> <span class="operator">=</span> parent.getContext();</span><br><span class="line"></span><br><span class="line">    <span class="type">View</span> <span class="variable">itemView</span> <span class="operator">=</span> View.inflate(context,viewType,<span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">return</span> typeFactory.createViewHolder(viewType,itemView);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="小结：-1"><a href="#小结：-1" class="headerlink" title="小结："></a>小结：</h3><ul>
+<li><p>在onCreateViewHolder中以BaseViewHolder作为返回值类型。因为BaseViewHolder作为不同类型的ViewHolder的基类，可以避免在onBindViewHolder中对ViewHolder进行类型检查与类型转换，同时也可以简化onBindViewHolder方法中的代码（具体会在下文阐述）；</p>
+</li>
+<li><p>创建不同类型的ViewHolder的相关代码被抽取到了TypeFactoryForList 中，简化了onCreateViewHolder中的代码，同时与类型相关的代码都集中在TypeFactoryForList 中，方便后期维护与拓展；</p>
+</li>
+</ul>
+<h4 id="onBindViewHolder"><a href="#onBindViewHolder" class="headerlink" title="onBindViewHolder"></a>onBindViewHolder</h4><p>经过以上实现，onBindViewHolder中的代码就非常的轻盈了，如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onBindViewHolder</span><span class="params">(BaseViewHolder holder, <span class="type">int</span> position)</span> &#123;</span><br><span class="line">    holder.setUpView(models.get(position),position,<span class="built_in">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，在onBindViewHolder中不需要对ViewHolder进行类型检查与转换，也不需要针对不同类型的ViewHoler执行不同绑定操作，不同的列表布局类型的数据绑定（逻辑代码）都交给了与其自身对应的ViewHolder处理，如下(setUpView中的代码可根据实际情况修改)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NormalViewHolder</span> <span class="keyword">extends</span> <span class="title class_">BaseViewHolder</span>&lt;Normal&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NormalViewHolder</span><span class="params">(View itemView)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(itemView);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUpView</span><span class="params">(<span class="keyword">final</span> Normal model, <span class="type">int</span> position, MultiTypeAdapter adapter)</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">TextView</span> <span class="variable">textView</span> <span class="operator">=</span> (TextView) getView(R.id.normal_title);</span><br><span class="line">        textView.setText(model.getText());</span><br><span class="line"></span><br><span class="line">        textView.setOnClickListener(<span class="keyword">new</span> <span class="title class_">View</span>.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onClick</span><span class="params">(View view)</span> &#123;</span><br><span class="line">                Toast.makeText(textView.getContext(),model.getText(),Toast.LENGTH_SHORT).show();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>onBindViewHolder中不需要进行类型检查与转换，对ItemView的数据绑定与逻辑处理都交由各自的ViewHolder进行处理。通过这样方式，让代码更整洁，更易于维护，同时也增强了扩展性。<br>总结</p>
+<p>经过如上优化之后，Adapter中的代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MultiTypeAdapter</span> <span class="keyword">extends</span> <span class="title class_">RecyclerView</span>.Adapter&lt;BaseViewHolder&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> TypeFactory typeFactory;</span><br><span class="line">    <span class="keyword">private</span> List&lt;Visitable&gt; models;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MultiTypeAdapter</span><span class="params">(List&lt;Visitable&gt; models)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.models = models;</span><br><span class="line">        <span class="built_in">this</span>.typeFactory = <span class="keyword">new</span> <span class="title class_">TypeFactoryForList</span>();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> BaseViewHolder <span class="title function_">onCreateViewHolder</span><span class="params">(ViewGroup parent, <span class="type">int</span> viewType)</span> &#123;</span><br><span class="line">        <span class="type">Context</span> <span class="variable">context</span> <span class="operator">=</span> parent.getContext();</span><br><span class="line"></span><br><span class="line">        <span class="type">View</span> <span class="variable">itemView</span> <span class="operator">=</span> View.inflate(context,viewType,<span class="literal">null</span>);</span><br><span class="line">        <span class="keyword">return</span> typeFactory.createViewHolder(viewType,itemView);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onBindViewHolder</span><span class="params">(BaseViewHolder holder, <span class="type">int</span> position)</span> &#123;</span><br><span class="line">        holder.setUpView(models.get(position),position,<span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getItemCount</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>（<span class="literal">null</span> == models）&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>； </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> models.size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getItemViewType</span><span class="params">(<span class="type">int</span> position)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> models.get(position).type(typeFactory);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当列表中增加类型时：</p>
+<ul>
+<li><p>为该类型创建实现了Visitable接口的Model类</p>
+</li>
+<li><p>创建继承于BaseViewHolder的ViewHolder（与Model类对应）</p>
+</li>
+<li><p>为TypeFactory增加type方法（与Model类对应），同时TypeFactoryForList 实现该方法</p>
+</li>
+<li><p>为TypeFactoryForList增加与列表类型对应的资源ID参数</p>
+</li>
+<li><p>修改TypeFactoryForList 中的createViewHolder方法</p>
+</li>
+</ul>
+<p>可以看到，虽然Adapter中的代码量减少，但总体的代码量并没减少（可能还增多了），但是和好处比起来，增加一点代码量还是值得的</p>
+<ul>
+<li><p>拓展性——Adapter并不关心不同的列表类型在列表中的位置，因此对于Adapter来说列表类型可以随意增加或减少，我们只需要维护好数据源即可。</p>
+</li>
+<li><p>可维护性——不同的列表类型由不同的ViewHolder维护，相互之间互不干扰；对类型的管理都在TypeFactoryForList 中，TypeFactoryForList 中的代码量少，代码简洁，维护成本低。<br>避免了类的类型检查与类型转型，这点看源码就可以知道</p>
+</li>
+</ul>
+<blockquote>
+<p>转载自<a target="_blank" rel="noopener" href="http://www.jianshu.com/p/1297d2e4d27a?utm_source=desktop&amp;utm_medium=timeline">http://www.jianshu.com/p/1297d2e4d27a?utm_source=desktop&amp;utm_medium=timeline</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/RecyclerView/" rel="tag"># RecyclerView</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/03/24/Hexo+NexT%E4%B8%BB%E9%A2%98%E5%8F%8B%E8%A8%80%E7%A4%BE%E4%BA%A4%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" rel="prev" title="Hexo+NexT主题友言社交评论系统配置">
+                  <i class="fa fa-chevron-left"></i> Hexo+NexT主题友言社交评论系统配置
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/05/19/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%952017-05-19_160205/" rel="next" title="编译时出现"java.util.zip.ZipException"">
+                  编译时出现"java.util.zip.ZipException" <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">vi1zen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

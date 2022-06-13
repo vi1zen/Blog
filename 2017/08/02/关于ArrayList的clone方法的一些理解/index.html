@@ -1,38 +1,348 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
 
 
-{% block title %} {{ page.title }} | {{ config.title }} {% endblock %}
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block content %}
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+<script class="next-config" data-name="main" type="application/json">{"hostname":"vi1zen.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1. ArrayList的clone方法源码1234567891011121314151617&#x2F;** * Returns a shallow copy of this &lt;tt&gt;ArrayList&lt;&#x2F;tt&gt; instance.  (The * elements themselves are not copied.) * * @return a clone of this &amp;l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于ArrayList的clone方法的一些理解">
+<meta property="og:url" content="http://vi1zen.cn/2017/08/02/%E5%85%B3%E4%BA%8EArrayList%E7%9A%84clone%E6%96%B9%E6%B3%95%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/index.html">
+<meta property="og:site_name" content="vi1zen">
+<meta property="og:description" content="1. ArrayList的clone方法源码1234567891011121314151617&#x2F;** * Returns a shallow copy of this &lt;tt&gt;ArrayList&lt;&#x2F;tt&gt; instance.  (The * elements themselves are not copied.) * * @return a clone of this &amp;l">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ol9j5v5dg.bkt.clouddn.com/before_remove.png">
+<meta property="og:image" content="http://ol9j5v5dg.bkt.clouddn.com/after_remove.png">
+<meta property="article:published_time" content="2017-08-02T02:55:37.000Z">
+<meta property="article:modified_time" content="2017-08-02T06:21:11.000Z">
+<meta property="article:author" content="vi1zen">
+<meta property="article:tag" content="ArrayList">
+<meta property="article:tag" content="clone">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ol9j5v5dg.bkt.clouddn.com/before_remove.png">
+
+
+<link rel="canonical" href="http://vi1zen.cn/2017/08/02/%E5%85%B3%E4%BA%8EArrayList%E7%9A%84clone%E6%96%B9%E6%B3%95%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://vi1zen.cn/2017/08/02/%E5%85%B3%E4%BA%8EArrayList%E7%9A%84clone%E6%96%B9%E6%B3%95%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/","path":"2017/08/02/关于ArrayList的clone方法的一些理解/","title":"关于ArrayList的clone方法的一些理解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>关于ArrayList的clone方法的一些理解 | vi1zen</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">vi1zen</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
 
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-ArrayList%E7%9A%84clone%E6%96%B9%E6%B3%95%E6%BA%90%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">1. ArrayList的clone方法源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-ArrayList%E7%9A%84clone%E6%B5%85%E5%A4%8D%E5%88%B6%E7%9A%84%E5%B7%A7%E5%A6%99%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">2. ArrayList的clone浅复制的巧妙使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%AE%9E%E7%8E%B0List%E7%9A%84%E6%B7%B1%E5%85%8B%E9%9A%86"><span class="nav-number">3.</span> <span class="nav-text">3. 实现List的深克隆</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="vi1zen"
+      src="/source/uploads/avater.jpg">
+  <p class="site-author-name" itemprop="name">vi1zen</p>
+  <div class="site-description" itemprop="description">天凉饮酒，风清读书</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/vi1zen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;vi1zen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://vi1zen.cn/2017/08/02/%E5%85%B3%E4%BA%8EArrayList%E7%9A%84clone%E6%96%B9%E6%B3%95%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/source/uploads/avater.jpg">
+      <meta itemprop="name" content="vi1zen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="vi1zen">
+      <meta itemprop="description" content="天凉饮酒，风清读书">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="关于ArrayList的clone方法的一些理解 | vi1zen">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          关于ArrayList的clone方法的一些理解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2017-08-02 10:55:37 / 修改时间：14:21:11" itemprop="dateCreated datePublished" datetime="2017-08-02T10:55:37+08:00">2017-08-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="1-ArrayList的clone方法源码"><a href="#1-ArrayList的clone方法源码" class="headerlink" title="1. ArrayList的clone方法源码"></a>1. ArrayList的clone方法源码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns a shallow copy of this &lt;tt&gt;ArrayList&lt;/tt&gt; instance.  (The</span></span><br><span class="line"><span class="comment"> * elements themselves are not copied.)</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> a clone of this &lt;tt&gt;ArrayList&lt;/tt&gt; instance</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> Object <span class="title function_">clone</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        ArrayList&lt;?&gt; v = (ArrayList&lt;?&gt;) <span class="built_in">super</span>.clone();</span><br><span class="line">        v.elementData = Arrays.copyOf(elementData, size);</span><br><span class="line">        v.modCount = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> v;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (CloneNotSupportedException e) &#123;</span><br><span class="line">        <span class="comment">// this shouldn&#x27;t happen, since we are Cloneable</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">InternalError</span>(e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该方法返回一个Object对象，所以在使用此方法的时候要强制转换。<br>ArrayList的本质是维护了一个Object的数组，所以克隆也是通过数组的复制实现的，对象不会被克隆，属于浅克隆。</p>
+<span id="more"></span>
+
+<h3 id="2-ArrayList的clone浅复制的巧妙使用"><a href="#2-ArrayList的clone浅复制的巧妙使用" class="headerlink" title="2. ArrayList的clone浅复制的巧妙使用"></a>2. ArrayList的clone浅复制的巧妙使用</h3><p>当你需要使用remove方法移除掉集合中的对象，而非要修改集合中的对象的时候，可以选择使用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//添加两个元素</span></span><br><span class="line">Student stJack=<span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;Jack&quot;</span>, <span class="number">13</span>);</span><br><span class="line">Student stTom=<span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;Tom&quot;</span>, <span class="number">15</span>);</span><br><span class="line">list.add(stJack);</span><br><span class="line">list.add(stTom);</span><br><span class="line"></span><br><span class="line"><span class="comment">//克隆</span></span><br><span class="line">ArrayList&lt;Student&gt; listCopy=(ArrayList&lt;Student&gt;) list.clone();</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除且不修改</span></span><br><span class="line">listCopy.remove(<span class="number">1</span>);</span><br><span class="line">System.out.println(list);</span><br><span class="line">System.out.println(listCopy);</span><br></pre></td></tr></table></figure>
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[student[name=Jack,age=<span class="number">13</span>],[name=Tom,age=<span class="number">15</span>]]</span><br><span class="line">[student[name=Jack,age=<span class="number">13</span>]]</span><br></pre></td></tr></table></figure>
+<p>内存堆栈示意图</p>
+<ul>
+<li>remove之前</li>
+</ul>
+<p><img src="http://ol9j5v5dg.bkt.clouddn.com/before_remove.png" alt="remove之前"></p>
+<ul>
+<li>remove之后</li>
+</ul>
+<p><img src="http://ol9j5v5dg.bkt.clouddn.com/after_remove.png" alt="remove之后"></p>
+<blockquote>
+<p>可以看出：移除且不修改集合中的元素，只是在List内部的数组中移除了指向元素的地址，可以放心的使用clone。</p>
+</blockquote>
+<h3 id="3-实现List的深克隆"><a href="#3-实现List的深克隆" class="headerlink" title="3. 实现List的深克隆"></a>3. 实现List的深克隆</h3><p>如果你想要修改克隆后的集合，那么克隆前的也会被修改。那么就需要使用深克隆。<br>在浅度克隆的基础上，对于要克隆的对象中的非基本数据类型的属性对应的类，也实现克隆，这样对于非基本数据类型的属性，复制的不是一份引用，即新产生的对象和原始对象中的非基本数据类型的属性指向的不是同一个对象</p>
+<p><strong>深克隆步骤：</strong></p>
+<blockquote>
+<p>要克隆的类和类中所有非基本数据类型的属性对应的类<br>1、都实现java.lang.Cloneable接口<br>2、都重写java.lang.Object.clone()方法</p>
+</blockquote>
+<p>代码实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">testClone</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">            ArrayList&lt;Student&gt; list=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Student&gt;();</span><br><span class="line">            <span class="comment">//添加两个元素</span></span><br><span class="line">            Student stJack=<span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;Jack&quot;</span>, <span class="number">13</span>);</span><br><span class="line">            Student stTom=<span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;Tom&quot;</span>, <span class="number">15</span>);</span><br><span class="line">            list.add(stJack);</span><br><span class="line">            list.add(stTom);</span><br><span class="line">            <span class="comment">//深克隆</span></span><br><span class="line">            ArrayList&lt;Student&gt; listCopy=<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Student&gt;();</span><br><span class="line">            <span class="keyword">for</span> (Student student : list) &#123;</span><br><span class="line">                listCopy.add(student.clone());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//移除且不修改</span></span><br><span class="line">            listCopy.get(<span class="number">0</span>).setAge(<span class="number">20</span>);</span><br><span class="line">            System.out.println(list);</span><br><span class="line">            System.out.println(listCopy);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">implements</span> <span class="title class_">Cloneable</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getAge</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAge</span><span class="params">(<span class="type">int</span> age)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Student</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>();</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Student [name=&quot;</span> + name + <span class="string">&quot;, age=&quot;</span> + age + <span class="string">&quot;]&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Student <span class="title function_">clone</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">Student</span> <span class="variable">stuent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="built_in">this</span>.name,<span class="built_in">this</span>.age); </span><br><span class="line">        <span class="keyword">return</span> stuent; </span><br><span class="line">    &#125;</span><br><span class="line">       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ArrayList/" rel="tag"># ArrayList</a>
+              <a href="/tags/clone/" rel="tag"># clone</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/07/28/Android_RSA%E5%8A%A0%E8%A7%A3%E5%AF%86/" rel="prev" title="Android RSA加解密">
+                  <i class="fa fa-chevron-left"></i> Android RSA加解密
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/08/10/Android%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B8%8EStartActivityForResult%E7%9A%84%E5%85%B3%E7%B3%BB/" rel="next" title="Android启动模式与StartActivityForResult的关系">
+                  Android启动模式与StartActivityForResult的关系 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">vi1zen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

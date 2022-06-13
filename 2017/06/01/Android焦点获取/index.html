@@ -1,38 +1,348 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
 
 
-{% block title %} {{ page.title }} | {{ config.title }} {% endblock %}
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block content %}
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+<script class="next-config" data-name="main" type="application/json">{"hostname":"vi1zen.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="什么是焦点？  在非触屏手机时代或电脑上，我们通常需要用键盘、 鼠标、轨迹球（trackball）与界面进行交互，当交互的时候必须使目标控件获得焦点（比如高亮起来），这样用户才会注意到是什么控件接受输入。而如果是在触屏时代，用户可以直接用手指点击控件，这个时候就没必要将目标高亮了（即获取焦点）。这也就是接下来我们要讲的触摸模式（Touch Mode）。  触摸模式  当用户使用方向键或轨迹球导航">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android焦点获取">
+<meta property="og:url" content="http://vi1zen.cn/2017/06/01/Android%E7%84%A6%E7%82%B9%E8%8E%B7%E5%8F%96/index.html">
+<meta property="og:site_name" content="vi1zen">
+<meta property="og:description" content="什么是焦点？  在非触屏手机时代或电脑上，我们通常需要用键盘、 鼠标、轨迹球（trackball）与界面进行交互，当交互的时候必须使目标控件获得焦点（比如高亮起来），这样用户才会注意到是什么控件接受输入。而如果是在触屏时代，用户可以直接用手指点击控件，这个时候就没必要将目标高亮了（即获取焦点）。这也就是接下来我们要讲的触摸模式（Touch Mode）。  触摸模式  当用户使用方向键或轨迹球导航">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-06-01T02:12:50.000Z">
+<meta property="article:modified_time" content="2017-06-01T02:21:31.000Z">
+<meta property="article:author" content="vi1zen">
+<meta property="article:tag" content="焦点">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://vi1zen.cn/2017/06/01/Android%E7%84%A6%E7%82%B9%E8%8E%B7%E5%8F%96/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://vi1zen.cn/2017/06/01/Android%E7%84%A6%E7%82%B9%E8%8E%B7%E5%8F%96/","path":"2017/06/01/Android焦点获取/","title":"Android焦点获取"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android焦点获取 | vi1zen</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">vi1zen</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
 
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="vi1zen"
+      src="/source/uploads/avater.jpg">
+  <p class="site-author-name" itemprop="name">vi1zen</p>
+  <div class="site-description" itemprop="description">天凉饮酒，风清读书</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/vi1zen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;vi1zen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://vi1zen.cn/2017/06/01/Android%E7%84%A6%E7%82%B9%E8%8E%B7%E5%8F%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/source/uploads/avater.jpg">
+      <meta itemprop="name" content="vi1zen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="vi1zen">
+      <meta itemprop="description" content="天凉饮酒，风清读书">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android焦点获取 | vi1zen">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android焦点获取
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2017-06-01 10:12:50 / 修改时间：10:21:31" itemprop="dateCreated datePublished" datetime="2017-06-01T10:12:50+08:00">2017-06-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <ul>
+<li><strong>什么是焦点？</strong></li>
+</ul>
+<p>在非触屏手机时代或电脑上，我们通常需要用键盘、 鼠标、轨迹球（trackball）与界面进行交互，当交互的时候必须使目标控件获得焦点（比如高亮起来），这样用户才会注意到是什么控件接受输入。而如果是在触屏时代，用户可以直接用手指点击控件，这个时候就没必要将目标高亮了（即获取焦点）。这也就是接下来我们要讲的触摸模式（Touch Mode）。</p>
+<ul>
+<li><strong>触摸模式</strong></li>
+</ul>
+<p>当用户使用方向键或轨迹球导航用户界面时，必须聚焦到可操作项目上（如按钮），以便用户看到将接受输入的对象。 但是，如果设备具有触摸功能且用户开始通过触摸界面与之交互，则不再需要突出显示项目或聚焦到特定视图对象上。 因此，有一种交互模式称为“触摸模式”（Touch Mode）。</p>
+<p>触摸模式是用户和手机进行交互时view层次结构的一个状态。代表了最近一次的交互是否是通过触摸屏发生的，因为在Android设备上还存在别的交互方式，比如键盘、等等。</p>
+<p>对于支持触摸功能的设备，当用户触摸屏幕时，设备会立即进入触摸模式。无论何时，只要用户点击方向键或滚动轨迹球，设备就会退出触摸模式并找到一个视图使其获得焦点。 现在，用户可在不触摸屏幕的情况下继续与用户界面交互。</p>
+<p>整个系统（所有窗口和 Activity）都将保持触摸模式状态。要查询当前状态，您可以调用View.isInTouchMode() 来检查设备目前是否处于触摸模式。</p>
+<span id="more"></span>
+
+<ul>
+<li><strong>焦点和触摸模式</strong></li>
+</ul>
+<p>在触摸模式下，没有焦点，没有选择。同样，任何已聚焦的控件当进入触摸模式时都变为未聚焦状态。而当使用轨迹球和键盘时，就会立即离开触摸模式，控件就会变成聚焦的状态。</p>
+<p>现在我们知道了焦点不可以存在于触摸模式了吧，但是这并不完全正确，焦点其实是可以一种特殊的方式存在于触摸模式中的，我们称之为聚焦（ focusable）。这种特殊的模式是专门为可接收文字输入的控件创建的，比如EditText。这就是为什么用户可以直接输入文字到文本框中，而不必先用手指选择其文本框的原因。</p>
+<p>在触摸模式中，任何控件只要是可聚焦（focusable ）的状态，当用户点击其控件时，该控件就会接收到其焦点。如果是不可聚焦的，点击控件将不会接收到焦点。</p>
+<p>对于支持触摸功能的设备，当用户触摸屏幕时，设备会立即进入触摸模式。 自此以后，只有 isFocusableInTouchMode() 为 true 的视图才可聚焦，如文本编辑小部件EditText。其他可触摸的视图（如按钮Button）在用户触摸时不会获得焦点；按下时它们只是触发点击侦听器。</p>
+<p>在触摸模式下，只有少部分的控件默认是可聚焦的状态，例如EditText。可以通过setFocusableInTouchMode或xml中android:focusableInTouchMode设置控件是否可聚焦。</p>
+<ul>
+<li><strong>setFocusableInTouchMode 和 setFocusable</strong></li>
+</ul>
+<p>很多人对这两个方法有疑问其实很简单：</p>
+<blockquote>
+<p>setFocusable：设置控件是否能获取焦点。可以通过isFocusable()获取其状态。<br>setFocusableInTouchMode：在触摸模式下，设置控件是否允许聚焦。可以通过isFocusableInTouchMode() 获取其状态。</p>
+</blockquote>
+<p>在使用键盘或轨迹球的情况下，只有setFocusable为true的控件，才可以获取焦点（选中时高亮）。而在触摸模式下，setFocusable为true，并无法保证控件可以获取焦点。setFocusable为true只能保证在非触摸模式下，该控件可以允许获取焦点。如果想在在触摸模式中，改变控件是否允许聚焦，请使用setFocusableInTouchMode进行更改。</p>
+<p>从上面我们也可以看出，不管是否在触摸模式下，控件获取焦点的前提是isFocusable()为true。<strong>而在触摸模式下，只有isFocusable()和isFocusableInTouchMode()都为ture的情况下，控件才允许聚焦。</strong></p>
+<p>通过上面我们发现如下的规律： </p>
+<blockquote>
+<p>setFocusableInTouchMode为true，会使isFocusable也变为true，而setFocusableInTouchMode为false并不影响isFocusable。<br>setFocusable为false，会使isFocusableInTouchMode变为false，而setFocusable为true并不影响isFocusableInTouchMode。</p>
+</blockquote>
+<p><strong>因此，如要获取焦点需要setFocusableInTouchMode和setFocusable同时为true才能保证获取到焦点，注意在表单中想设置某一个如EditText获取焦点，光设置这个是不行的，需要将这个EditText前面的focusable都设置为false才行。</strong></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%84%A6%E7%82%B9/" rel="tag"># 焦点</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/05/19/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%952017-05-19_160205/" rel="prev" title="编译时出现"java.util.zip.ZipException"">
+                  <i class="fa fa-chevron-left"></i> 编译时出现"java.util.zip.ZipException"
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/07/14/JAVA%E4%B8%AD%E5%BE%AA%E7%8E%AF%E5%88%A0%E9%99%A4list%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/" rel="next" title="JAVA中循环删除list中元素的方法总结">
+                  JAVA中循环删除list中元素的方法总结 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">vi1zen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

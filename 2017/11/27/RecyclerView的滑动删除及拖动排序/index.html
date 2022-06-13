@@ -1,38 +1,331 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
 
 
-{% block title %} {{ page.title }} | {{ config.title }} {% endblock %}
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block content %}
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+<script class="next-config" data-name="main" type="application/json">{"hostname":"vi1zen.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="引言在安卓中，有许多关于如何使用RecyclerView实现“drag &amp; drop”与swipe-to-dismiss”的教程，库和例子。即使现在已经有了新的，更优的实现方式，大多数仍然是使用老旧的View.OnDragListener以及Roman Nurik在SwipeToDismiss中所使用的方法。很少有人使用新的api，反而要么经常依赖于GestureDetectors和onI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RecyclerView的滑动删除及拖动排序">
+<meta property="og:url" content="http://vi1zen.cn/2017/11/27/RecyclerView%E7%9A%84%E6%BB%91%E5%8A%A8%E5%88%A0%E9%99%A4%E5%8F%8A%E6%8B%96%E5%8A%A8%E6%8E%92%E5%BA%8F/index.html">
+<meta property="og:site_name" content="vi1zen">
+<meta property="og:description" content="引言在安卓中，有许多关于如何使用RecyclerView实现“drag &amp; drop”与swipe-to-dismiss”的教程，库和例子。即使现在已经有了新的，更优的实现方式，大多数仍然是使用老旧的View.OnDragListener以及Roman Nurik在SwipeToDismiss中所使用的方法。很少有人使用新的api，反而要么经常依赖于GestureDetectors和onI">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-11-27T09:14:23.000Z">
+<meta property="article:modified_time" content="2017-11-27T09:17:26.000Z">
+<meta property="article:author" content="vi1zen">
+<meta property="article:tag" content="ItemTouchHelper">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://vi1zen.cn/2017/11/27/RecyclerView%E7%9A%84%E6%BB%91%E5%8A%A8%E5%88%A0%E9%99%A4%E5%8F%8A%E6%8B%96%E5%8A%A8%E6%8E%92%E5%BA%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://vi1zen.cn/2017/11/27/RecyclerView%E7%9A%84%E6%BB%91%E5%8A%A8%E5%88%A0%E9%99%A4%E5%8F%8A%E6%8B%96%E5%8A%A8%E6%8E%92%E5%BA%8F/","path":"2017/11/27/RecyclerView的滑动删除及拖动排序/","title":"RecyclerView的滑动删除及拖动排序"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RecyclerView的滑动删除及拖动排序 | vi1zen</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">vi1zen</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
 
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-ItemTouchHelper-%E5%92%8C-ItemTouchHelper-Callback"><span class="nav-number">2.</span> <span class="nav-text">使用 ItemTouchHelper 和 ItemTouchHelper.Callback</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">核心代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">使用</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="vi1zen"
+      src="/source/uploads/avater.jpg">
+  <p class="site-author-name" itemprop="name">vi1zen</p>
+  <div class="site-description" itemprop="description">天凉饮酒，风清读书</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/vi1zen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;vi1zen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://vi1zen.cn/2017/11/27/RecyclerView%E7%9A%84%E6%BB%91%E5%8A%A8%E5%88%A0%E9%99%A4%E5%8F%8A%E6%8B%96%E5%8A%A8%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/source/uploads/avater.jpg">
+      <meta itemprop="name" content="vi1zen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="vi1zen">
+      <meta itemprop="description" content="天凉饮酒，风清读书">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RecyclerView的滑动删除及拖动排序 | vi1zen">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RecyclerView的滑动删除及拖动排序
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2017-11-27 17:14:23 / 修改时间：17:17:26" itemprop="dateCreated datePublished" datetime="2017-11-27T17:14:23+08:00">2017-11-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>在安卓中，有许多关于如何使用RecyclerView实现“drag &amp; drop”与swipe-to-dismiss”的教程，库和例子。即使现在已经有了新的，更优的实现方式，大多数仍然是使用老旧的View.OnDragListener以及Roman Nurik在SwipeToDismiss中所使用的方法。很少有人使用新的api，反而要么经常依赖于GestureDetectors和onInterceptTouchEvent，要么实现方式很复杂。实际上，在RecyclerView上添加拖动特性有一个非常简单的方法。这个方法只需要一个类，并且它也是Android 兼容包的一部分，它就是：ItemTouchHelper</p>
+<blockquote>
+<p>ItemTouchHelper是一个强大的工具，它处理好了关于在RecyclerView上添加拖动排序与滑动删除的所有事情。它是RecyclerView.ItemDecoration的子类，也就是说它可以轻易的添加到几乎所有的LayoutManager和Adapter中。它还可以和现有的item动画一起工作，提供受类型限制的拖放动画等等.</p>
+</blockquote>
+<h3 id="使用-ItemTouchHelper-和-ItemTouchHelper-Callback"><a href="#使用-ItemTouchHelper-和-ItemTouchHelper-Callback" class="headerlink" title="使用 ItemTouchHelper 和 ItemTouchHelper.Callback"></a>使用 ItemTouchHelper 和 ItemTouchHelper.Callback</h3><p>要使用ItemTouchHelper，你需要创建一个ItemTouchHelper.Callback。这个接口可以让你监听“move”与 “swipe”事件。这里还是控制view被选中的状态以及重写默认动画的地方。如果你只是想要一个基本的实现，有一个帮助类可以使用：SimpleCallback,但是为了了解其工作机制，我们还是自己实现。</p>
+<p>启用基本的拖动排序与滑动删除需要重写的主要回调方法是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getMovementFlags(RecyclerView, ViewHolder)</span><br><span class="line">onMove(RecyclerView, ViewHolder, ViewHolder)</span><br><span class="line">onSwiped(ViewHolder, <span class="type">int</span>)</span><br></pre></td></tr></table></figure>
+
+<p>两个帮助方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">isLongPressDragEnabled()</span><br><span class="line">isItemViewSwipeEnabled()</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h3 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DefaultItemTouchHelper</span> <span class="keyword">extends</span> <span class="title class_">ItemTouchHelper</span>.Callback &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List T;</span><br><span class="line">    <span class="keyword">private</span> RecyclerView.Adapter adapter;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">DefaultItemTouchHelper</span><span class="params">(RecyclerView.Adapter adapter, List T)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.adapter = adapter;</span><br><span class="line">        <span class="built_in">this</span>.T = T;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getMovementFlags</span><span class="params">(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder)</span> &#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 获取触摸响应的方向 包含两个(0表示不做处理)</span></span><br><span class="line"><span class="comment">         * 1.拖动dragFlags</span></span><br><span class="line"><span class="comment">         * 2.侧滑删除swipeFlags</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//侧滑处理</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">swipeFlags</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//拖动处理</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">dragFlags</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(recyclerView.getLayoutManager() <span class="keyword">instanceof</span> GridLayoutManager)&#123;</span><br><span class="line">            dragFlags = ItemTouchHelper.LEFT | ItemTouchHelper.UP |</span><br><span class="line">                    ItemTouchHelper.RIGHT| ItemTouchHelper.DOWN;</span><br><span class="line">            swipeFlags = <span class="number">0</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(recyclerView.getLayoutManager() <span class="keyword">instanceof</span> LinearLayoutManager)&#123;</span><br><span class="line">            <span class="type">LinearLayoutManager</span> <span class="variable">linearLayoutManager</span> <span class="operator">=</span> (LinearLayoutManager) recyclerView.getLayoutManager();</span><br><span class="line">            <span class="keyword">if</span>(linearLayoutManager.getOrientation() == LinearLayoutManager.HORIZONTAL)&#123;</span><br><span class="line">                dragFlags = ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT;</span><br><span class="line">                swipeFlags = ItemTouchHelper.DOWN;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;</span><br><span class="line">                swipeFlags = ItemTouchHelper.LEFT;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> makeMovementFlags(dragFlags,swipeFlags);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 拖动时的回调方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> recyclerView</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> viewHolder</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> target</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onMove</span><span class="params">(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,</span></span><br><span class="line"><span class="params">                          RecyclerView.ViewHolder target)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取原来的位置</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">oldPostion</span> <span class="operator">=</span> viewHolder.getAdapterPosition();</span><br><span class="line">        <span class="comment">// 目标位置</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">targetPostion</span> <span class="operator">=</span> target.getAdapterPosition();</span><br><span class="line">        <span class="comment">// 改变实际的数据集</span></span><br><span class="line">        Collections.swap(T,oldPostion,targetPostion);</span><br><span class="line">        <span class="comment">// 通知刷新数据</span></span><br><span class="line">        adapter.notifyItemMoved(oldPostion,targetPostion);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onSwiped</span><span class="params">(RecyclerView.ViewHolder viewHolder, <span class="type">int</span> direction)</span> &#123;</span><br><span class="line">        <span class="comment">//处理侧滑操作</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">postion</span> <span class="operator">=</span> viewHolder.getAdapterPosition();</span><br><span class="line">        T.remove(postion);</span><br><span class="line">        adapter.notifyItemRemoved(postion);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onSelectedChanged</span><span class="params">(RecyclerView.ViewHolder viewHolder, <span class="type">int</span> actionState)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onSelectedChanged(viewHolder, actionState);</span><br><span class="line">        <span class="keyword">if</span>(actionState != ItemTouchHelper.ACTION_STATE_IDLE)&#123;<span class="comment">//不是拖动或滑动状态时</span></span><br><span class="line">            viewHolder.itemView.setBackgroundColor(Color.parseColor(<span class="string">&quot;#F6F6F6&quot;</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">clearView</span><span class="params">(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.clearView(recyclerView, viewHolder);</span><br><span class="line">        viewHolder.itemView.setBackgroundColor(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 默认返回true,可不用重写，如返回false只能拖动，会导致排序不起作用</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="comment">//    @Override</span></span><br><span class="line"><span class="comment">//    public boolean canDropOver(RecyclerView recyclerView, RecyclerView.ViewHolder current,        //                                 RecyclerView.ViewHolder target) &#123;</span></span><br><span class="line"><span class="comment">//        return true;</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 是否开启长按拖动</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isLongPressDragEnabled</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回是否可以滑动</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isItemViewSwipeEnabled</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ItemTouchHelper</span> <span class="variable">itemTouchHelper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ItemTouchHelper</span>(<span class="keyword">new</span> <span class="title class_">DefaultItemTouchHelper</span>(adapter,items));</span><br><span class="line">itemTouchHelper.attachToRecyclerView(recyclerView);</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ItemTouchHelper/" rel="tag"># ItemTouchHelper</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/11/17/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3LayoutInflater.inflate()/" rel="prev" title="深入理解LayoutInflater.inflate()">
+                  <i class="fa fa-chevron-left"></i> 深入理解LayoutInflater.inflate()
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/01/15/%E5%8D%87%E7%BA%A7Android%20Studio3.0/" rel="next" title="升级Android Studio 3.0">
+                  升级Android Studio 3.0 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">vi1zen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
