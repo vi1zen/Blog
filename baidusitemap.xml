@@ -1,428 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-
-    
+  <url>
+    <loc>http://vi1zen.cn/2019/07/15/GradientDrawable%E6%B8%90%E5%8F%98%E6%96%B9%E5%90%91%E6%9C%AA%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2019-07-17</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2018/03/23/Weex%20SDK%20%E9%9B%86%E6%88%90%E5%88%B0Android%E5%BA%94%E7%94%A8%E6%8C%87%E5%8D%97/</loc>
-    <lastmod>2018-03-23T01:38:03.165Z</lastmod>
-    <data>
-        <display>
-        <title>Weex SDK 集成到Android应用指南</title>
-        <pubTime>2018-03-23T02:10:10.000Z</pubTime>
-        
-        <tag>Weex</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2018-03-23</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2018/03/14/%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E8%A6%86%E7%9B%96%E7%89%A9Marker%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</loc>
-    <lastmod>2018-03-14T03:03:34.338Z</lastmod>
-    <data>
-        <display>
-        <title>百度地图覆盖物Marker的一些坑</title>
-        <pubTime>2018-03-14T02:16:23.000Z</pubTime>
-        
-        <tag>百度地图</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2018-03-14</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2018/02/06/%E4%BD%BF%E7%94%A8ConstraintLayout%E8%A7%A3%E5%86%B3%E5%B8%83%E5%B1%80%E5%B5%8C%E5%A5%97%EF%BC%8C%E6%8F%90%E9%AB%98%E6%80%A7%E8%83%BD/</loc>
-    <lastmod>2018-02-06T03:22:33.132Z</lastmod>
-    <data>
-        <display>
-        <title>使用ConstraintLayout解决布局嵌套，提高性能</title>
-        <pubTime>2018-02-06T03:14:15.000Z</pubTime>
-        
-        <tag>ConstraintLayout</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2018-02-06</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2018/01/15/%E5%8D%87%E7%BA%A7Android%20Studio3.0/</loc>
-    <lastmod>2018-01-15T03:12:48.714Z</lastmod>
-    <data>
-        <display>
-        <title>升级Android Studio 3.0</title>
-        <pubTime>2018-01-15T03:11:31.000Z</pubTime>
-        
-        <tag>Android Studio3.0</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2018-01-15</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2017/11/27/RecyclerView%E7%9A%84%E6%BB%91%E5%8A%A8%E5%88%A0%E9%99%A4%E5%8F%8A%E6%8B%96%E5%8A%A8%E6%8E%92%E5%BA%8F/</loc>
-    <lastmod>2017-11-27T09:17:26.511Z</lastmod>
-    <data>
-        <display>
-        <title>RecyclerView的滑动删除及拖动排序</title>
-        <pubTime>2017-11-27T09:14:23.000Z</pubTime>
-        
-        <tag>ItemTouchHelper</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2017-11-27</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2017/11/17/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3LayoutInflater.inflate()/</loc>
-    <lastmod>2017-11-17T06:14:30.276Z</lastmod>
-    <data>
-        <display>
-        <title>深入理解LayoutInflater.inflate()</title>
-        <pubTime>2017-11-17T06:05:02.000Z</pubTime>
-        
-        <tag>动态布局</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2017-11-17</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2017/08/10/Android%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B8%8EStartActivityForResult%E7%9A%84%E5%85%B3%E7%B3%BB/</loc>
-    <lastmod>2017-08-10T08:13:44.835Z</lastmod>
-    <data>
-        <display>
-        <title>Android启动模式与StartActivityForResult的关系</title>
-        <pubTime>2017-08-10T08:10:35.000Z</pubTime>
-        
-        <tag>启动模式</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2017-08-10</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2017/08/02/%E5%85%B3%E4%BA%8EArrayList%E7%9A%84clone%E6%96%B9%E6%B3%95%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/</loc>
-    <lastmod>2017-08-02T06:21:11.699Z</lastmod>
-    <data>
-        <display>
-        <title>关于ArrayList的clone方法的一些理解</title>
-        <pubTime>2017-08-02T02:55:37.000Z</pubTime>
-        
-        <tag>ArrayList</tag>
-         
-        <tag>clone</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2017-08-02</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2017/07/28/Android_RSA%E5%8A%A0%E8%A7%A3%E5%AF%86/</loc>
-    <lastmod>2017-07-28T02:10:41.740Z</lastmod>
-    <data>
-        <display>
-        <title>Android RSA加解密</title>
-        <pubTime>2017-07-28T01:41:38.000Z</pubTime>
-        
-        <tag>RSA</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2017-07-28</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2017/07/14/JAVA%E4%B8%AD%E5%BE%AA%E7%8E%AF%E5%88%A0%E9%99%A4list%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</loc>
-    <lastmod>2017-07-14T01:40:42.311Z</lastmod>
-    <data>
-        <display>
-        <title>JAVA中循环删除list中元素的方法总结</title>
-        <pubTime>2017-07-14T01:35:35.000Z</pubTime>
-        
-        <tag>list</tag>
-         
-         
-           
-             
-              <breadCrumb title="JAVA" url="http://vi1zen.cn/categories/JAVA/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2017-07-14</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2017/06/01/Android%E7%84%A6%E7%82%B9%E8%8E%B7%E5%8F%96/</loc>
-    <lastmod>2017-06-01T02:21:31.276Z</lastmod>
-    <data>
-        <display>
-        <title>Android焦点获取</title>
-        <pubTime>2017-06-01T02:12:50.000Z</pubTime>
-        
-        <tag>焦点</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2017-06-01</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2017/05/19/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%952017-05-19_160205/</loc>
-    <lastmod>2017-05-19T08:08:19.291Z</lastmod>
-    <data>
-        <display>
-        <title>编译时出现"java.util.zip.ZipException"</title>
-        <pubTime>2017-05-19T07:58:18.000Z</pubTime>
-        
-        <tag>问题记录</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2017-05-19</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2017/03/06/android%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/</loc>
-    <lastmod>2017-04-10T04:42:22.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android网络编程之网络通信的几种方式</title>
-        <pubTime>2017-03-06T13:31:30.000Z</pubTime>
-        
-        <tag>网络</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2017-04-10</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2017/04/10/%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0RecyclerView%E5%A4%9A%E7%B1%BB%E5%9E%8B%E5%88%97%E8%A1%A8%E7%9A%84Adapter/</loc>
-    <lastmod>2017-04-10T04:34:31.925Z</lastmod>
-    <data>
-        <display>
-        <title>优雅的实现RecyclerView多类型列表的Adapter</title>
-        <pubTime>2017-04-10T04:28:37.000Z</pubTime>
-        
-        <tag>RecyclerView</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-    
+    <lastmod>2017-04-10</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2017/03/24/Hexo+NexT%E4%B8%BB%E9%A2%98%E5%8F%8B%E8%A8%80%E7%A4%BE%E4%BA%A4%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2017-03-24T06:35:49.421Z</lastmod>
-    <data>
-        <display>
-        <title>Hexo+NexT主题友言社交评论系统配置</title>
-        <pubTime>2017-03-24T06:03:50.000Z</pubTime>
-        
-        <tag>友言</tag>
-         
-         
-           
-             
-              <breadCrumb title="NexT" url="http://vi1zen.cn/categories/NexT/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2017-03-24</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2017/03/17/Android%20%E5%B5%8C%E5%A5%97%E6%BB%91%E5%8A%A8%E6%9C%BA%E5%88%B6(NestedScrolling)/</loc>
-    <lastmod>2017-03-17T07:43:41.187Z</lastmod>
-    <data>
-        <display>
-        <title>Android 嵌套滑动机制（NestedScrolling）</title>
-        <pubTime>2017-03-17T07:18:12.000Z</pubTime>
-        
-        <tag>NestedScrolling</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2017-03-17</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2017/03/14/ViewPager%E9%99%90%E5%AE%9A%E9%A2%84%E5%8A%A0%E8%BD%BD%E7%9A%84%E9%A1%B5%E9%9D%A2%E4%B8%AA%E6%95%B0setOffscreenPageLimit(int%20limit)/</loc>
-    <lastmod>2017-03-14T09:34:34.283Z</lastmod>
-    <data>
-        <display>
-        <title>ViewPager限定预加载的页面个数setOffscreenPageLimit(int limit)</title>
-        <pubTime>2017-03-14T09:21:57.000Z</pubTime>
-        
-        <tag>ViewPager</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2017-03-14</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2017/02/12/%E5%88%A9%E7%94%A8canvas-next.js%E8%AE%BE%E7%BD%AENexT%E4%B8%BB%E9%A2%98%E8%83%8C%E6%99%AF/</loc>
-    <lastmod>2017-03-10T06:46:20.280Z</lastmod>
-    <data>
-        <display>
-        <title>利用canvas-next.js设置NexT主题背景</title>
-        <pubTime>2017-02-12T12:09:21.000Z</pubTime>
-        
-        <tag>NexT</tag>
-         
-        <tag>canvas-nest.js</tag>
-         
-         
-           
-             
-              <breadCrumb title="NexT" url="http://vi1zen.cn/categories/NexT/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
+    <lastmod>2017-03-10</lastmod>
+  </url>
   <url>
     <loc>http://vi1zen.cn/2017/03/06/Android%E9%80%80%E5%87%BA%E5%BA%94%E7%94%A8%E6%9C%80%E4%BC%98%E9%9B%85%E7%9A%84%E6%96%B9%E5%BC%8F/</loc>
-    <lastmod>2017-03-10T06:44:15.466Z</lastmod>
-    <data>
-        <display>
-        <title>Android退出应用最优雅的方式</title>
-        <pubTime>2017-03-06T13:27:05.000Z</pubTime>
-        
-        <tag>Android</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://vi1zen.cn/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-    
-    
+    <lastmod>2017-03-10</lastmod>
+  </url>
   <url>
-    <loc>http://vi1zen.cn/2017/02/09/%E5%88%A9%E7%94%A8github%20pages%20+%20Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2017-02-11T11:42:41.549Z</lastmod>
-    <data>
-        <display>
-        <title>利用Hexo + NexT搭建个人博客</title>
-        <pubTime>2017-02-09T13:12:08.480Z</pubTime>
-        
-        <tag>NexT</tag>
-         
-        <tag>Hexo</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-    
+    <loc>http://vi1zen.cn/2020/09/26/%E5%88%A9%E7%94%A8github%20pages%20+%20Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2017-02-11</lastmod>
+  </url>
   <url>
-    <loc>http://vi1zen.cn/2017/02/08/hello-world/</loc>
-    <lastmod>2017-02-09T13:18:50.874Z</lastmod>
-    <data>
-        <display>
-        <title>Hello World</title>
-        <pubTime>2017-02-08T11:25:09.766Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-</urlset>
+    <loc>http://vi1zen.cn/2020/09/26/hello-world/</loc>
+    <lastmod>2017-02-09</lastmod>
+  </url>
+</urlset> 
